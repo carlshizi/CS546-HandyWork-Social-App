@@ -1,0 +1,19 @@
+{
+  "name": "cs546-handywork-social-app3",
+  "version": "1.0.0",
+  "description": "HandyWork is a website designed to connect you with a local, trustworthy handyman for your next repairs.",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node server/index.js",
+    "client": "npm run start --prefix client",
+    "start": "concurrently \"npm run client\" \"npm run server\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.20"
+  }
+}
+

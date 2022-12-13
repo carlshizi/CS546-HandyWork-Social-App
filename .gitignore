@@ -1,0 +1,5 @@
+# ignore following files and folders
+delete.js
+seed2.js
+node_modules
+package-lock.json
