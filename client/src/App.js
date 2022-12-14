@@ -20,7 +20,7 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Account from "./components/Account";
 import User from "./components/User";
-
+import HandyManPage from "./components/HandyManPage";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -144,6 +144,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/account" element={<Account />} />
           <Route path="/user" element={<User />} />
+          <Route path="/search" element={<HandyManPage />} />
         </Routes>
       </div>
     </div>

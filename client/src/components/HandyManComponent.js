@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Card, Button, Collapse } from 'react-bootstrap';
-import ReactMarkdown from 'react-markdown';
 
 export default function HandyManComponent({ handyMan }) {
 
@@ -18,7 +17,7 @@ export default function HandyManComponent({ handyMan }) {
                             {handyMan.location}
                         </Card.Subtitle>
                     </div>
-                    <img className="d-none d-md-block" height="50" alt={handyMan.name} src={handyMan.pic}></img>
+                    {/* <img className="d-none d-md-block" height="50" alt={handyMan.name} src={handyMan.pic}></img> */}
                 </div>
                 <Card.Text>
                     <Button 
@@ -30,7 +29,7 @@ export default function HandyManComponent({ handyMan }) {
                 </Card.Text>
                 <Collapse in={open}>
                     <div className="mt-4">
-                        <ReactMarkdown source={handyMan.description} escapeHtml={false}/>
+                        {`Description: ${handyMan.description}`}
                     </div>
                 </Collapse>
             </Card.Body>
