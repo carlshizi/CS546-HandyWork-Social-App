@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from 'react-bootstrap';
@@ -27,15 +27,50 @@ import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 import EventBus from "./common/EventBus";
+import axios from "axios";
 
+// import { getAllPosts } from "./services/postService";
 
 
 const App = () => {
-  const { user: currentUser } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const [handyMen, setHandyMen] = useState([]);
+  const API_URL = "http://localhost:5000/api/post/";
+
+  let handyMenArr;
   const navigate = useNavigate();
 
+const getAllPosts = async () => {
+  axios
+  .get(API_URL + "getAll")
+  .then(response => {
+    let posts = response.data.posts;
+    setHandyMen(posts);
+  })
+  .catch(error => {console.log(error)});
+};
+
+useEffect(() => {
+  if(handyMen.length > 0){
+    console.log(handyMen);
+    navigate("/search", {state: {handyMen : handyMen}});
+  }
+}, [handyMen]);
+
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
   let location = useLocation();
+
+  // const searchAllHandyMen = async () => {
+  //   let handyMenArr;
+
+  //   axios
+  //   .get(API_URL + "getAll")
+  //   .then(response => {handyMenArr = response})
+  //   .catch(error => {console.log(error)});
+
+  //   navigate("/search", {state: {handyMen: handyMenArr}});
+  // };
 
   useEffect(() => {
     if (["/login", "/register"].includes(location.pathname)) {
@@ -151,7 +186,7 @@ const App = () => {
           <Route path="/search" element={<HandyManPage />} />
         </Routes>
       </div>
-      <Button onClick={() => navigate("search")} >Click me for all HandyMen</Button>
+      <Button onClick={() => getAllPosts()} >Click me for all HandyMen</Button>
     </div>
   );
 };

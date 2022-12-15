@@ -11,7 +11,7 @@ export default function HandyManComponent({ handyMan }) {
                 <div className="d-flex justify-content-between">
                     <div>
                         <Card.Title>
-                            {handyMan.name}
+                            {handyMan.username}
                         </Card.Title>
                         <Card.Subtitle className="text-muted mb-2">
                             {handyMan.location}
@@ -29,7 +29,7 @@ export default function HandyManComponent({ handyMan }) {
                 </Card.Text>
                 <Collapse in={open}>
                     <div className="mt-4">
-                        {`Description: ${handyMan.description}`}
+                        {`Description: ${handyMan.postMessage}`}
                     </div>
                 </Collapse>
             </Card.Body>
