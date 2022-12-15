@@ -1,6 +1,7 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
+import { Button } from 'react-bootstrap';
 import logo from './components/img/Handywork2ii.png'
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,6 +21,7 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Account from "./components/Account";
 import User from "./components/User";
+import HandyManPage from "./components/HandyManPage";
 import Reset from "./components/Reset";
 import Forgot from "./components/Forgot"
 import Success from "./components/resetSuccess"
@@ -29,8 +31,31 @@ import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 import EventBus from "./common/EventBus";
+import axios from "axios";
+
 
 const App = () => {
+  const [handyMen, setHandyMen] = useState([]);
+  const navigate = useNavigate();
+  const API_URL = "http://localhost:5000/api/post/";
+
+const getAllPosts = async () => {
+  axios
+  .get(API_URL + "getAll")
+  .then(response => {
+    let posts = response.data.posts;
+    setHandyMen(posts);
+  })
+  .catch(error => {console.log(error)});
+};
+
+useEffect(() => {
+  if(handyMen.length > 0){
+    console.log(handyMen);
+    navigate("/search", {state: {handyMen : handyMen}});
+  }
+}, [handyMen]);
+
   // let login = useLocation();
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -150,12 +175,14 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/account" element={<Account />} />
           <Route path="/user" element={<User />} />
+          <Route path="/search" element={<HandyManPage />} />
           {/* {this.state.isAuth ? <Route path="/reset" element={<Reset />} /> : <Route path="/reset" element={<Login />} />} */}
           <Route path="/reset" element={<Reset />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/success" element={<Success />} />
         </Routes>
       </div>
+      <Button onClick={() => getAllPosts()} >Click me for all HandyMen</Button>
     </div>
   );
 };
