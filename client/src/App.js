@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
+import { Button } from 'react-bootstrap';
 import logo from './components/img/Handywork2ii.png'
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,9 +28,12 @@ import { clearMessage } from "./actions/message";
 
 import EventBus from "./common/EventBus";
 
+
+
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   let location = useLocation();
 
@@ -147,6 +151,7 @@ const App = () => {
           <Route path="/search" element={<HandyManPage />} />
         </Routes>
       </div>
+      <Button onClick={() => navigate("search")} >Click me for all HandyMen</Button>
     </div>
   );
 };

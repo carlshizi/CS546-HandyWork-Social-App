@@ -8,6 +8,7 @@ const Landing = () => {
           <strong>Landing Page</strong>
         </h3>
       </header>
+      
     </div>
   );
 };
