@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from 'react-router-dom';
+import { delete_cookie } from 'sfcookies'
+
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import { isEmail } from "validator";
 
 import { login } from "../actions/auth";
 
@@ -13,8 +16,18 @@ const emailRequired = (value) => {
     return (
       <div className="error">
         <div className="regError2" role="alert">
-          Enter a username
+          Enter your email
         </div>
+      </div>
+    );
+  }
+};
+
+const validEmail = (value) => {
+  if (!isEmail(value)) {
+    return (
+      <div className="regError2" role="alert">
+        This is not a valid email
       </div>
     );
   }
@@ -30,6 +43,9 @@ const passwordRequired = (value) => {
 
 const Login = (props) => {
   let navigate = useNavigate();
+
+  const cookie_key = "navigate"   // clear cookie for navigating to reset page
+  delete_cookie(cookie_key)
 
   const form = useRef();
   const checkBtn = useRef();
@@ -90,10 +106,10 @@ const Login = (props) => {
               type="text"
               // className="input"
               name="username"
-              placeholder="Username"
+              placeholder="Email"
               value={username}
               onChange={onChangeUsername}
-              validations={[emailRequired]}
+              validations={[emailRequired, validEmail]}
             />
           </div>
 

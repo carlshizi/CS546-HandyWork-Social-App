@@ -22,6 +22,10 @@ import Profile from "./components/Profile";
 import Account from "./components/Account";
 import User from "./components/User";
 import HandyManPage from "./components/HandyManPage";
+import Reset from "./components/Reset";
+import Forgot from "./components/Forgot"
+import Success from "./components/resetSuccess"
+
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -52,6 +56,7 @@ useEffect(() => {
   }
 }, [handyMen]);
 
+  // let login = useLocation();
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -77,6 +82,7 @@ useEffect(() => {
       EventBus.remove("logout");
     };
   }, [currentUser, logOut]);
+
 
   return (
     <div>
@@ -161,6 +167,7 @@ useEffect(() => {
 
       <div className="container mt-3">
         <Routes>
+          <Route path="*" element={<LandingPage />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -169,6 +176,10 @@ useEffect(() => {
           <Route path="/account" element={<Account />} />
           <Route path="/user" element={<User />} />
           <Route path="/search" element={<HandyManPage />} />
+          {/* {this.state.isAuth ? <Route path="/reset" element={<Reset />} /> : <Route path="/reset" element={<Login />} />} */}
+          <Route path="/reset" element={<Reset />} />
+          <Route path="/forgot" element={<Forgot />} />
+          <Route path="/success" element={<Success />} />
         </Routes>
       </div>
       <Button onClick={() => getAllPosts()} >Click me for all HandyMen</Button>
