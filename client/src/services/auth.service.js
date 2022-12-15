@@ -25,12 +25,22 @@ const login = (email, password) => {
     });
 };
 
+const forgot = (email) => {
+  return axios
+    .post(API_URL + "forgot/password", {
+      email,
+    })
+    .then((response) => {
+      if (response.data.accessToken) {
+        localStorage.setItem("user2", JSON.stringify(response.data));
+      }
+      return response.data;
+    });
+};
+
 const logout = () => {
   localStorage.removeItem("user");
 };
 
-export default {
-  register,
-  login,
-  logout,
-};
+const exportedDefault = { register, login, forgot, logout };
+export default exportedDefault;

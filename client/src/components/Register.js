@@ -1,13 +1,12 @@
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { delete_cookie } from 'sfcookies'
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
-// import reg from "../components/Register.css"
-
 
 import { register } from "../actions/auth";
 
@@ -15,7 +14,7 @@ const required = (value) => {
   if (!value) {
     return (
       <div className="regError2" role="alert">
-        Missing field!
+        Missing field
       </div>
     );
   }
@@ -25,13 +24,13 @@ const validEmail = (value) => {
   if (!isEmail(value)) {
     return (
       <div className="regError2" role="alert">
-        This is not a valid email.
+        This is not a valid email
       </div>
     );
   }
 };
 
-const vusername = (value) => {
+const verifyUsername = (value) => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="regError2" role="alert">
@@ -45,7 +44,7 @@ const vusername = (value) => {
   }
 };
 
-const vpassword = (value) => {
+const verifyPassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
       <div className="regError2" role="alert">
@@ -56,6 +55,10 @@ const vpassword = (value) => {
 };
 
 const Register = () => {
+
+  const cookie_key = "navigate"   // clear cookie for navigating to reset page
+  delete_cookie(cookie_key)
+
   const form = useRef();
   const checkBtn = useRef();
 
@@ -63,6 +66,8 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
+  const { isLoggedIn } = useSelector(state => state.auth);
+
 
   const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
@@ -100,6 +105,10 @@ const Register = () => {
     }
   };
 
+  if (isLoggedIn) {
+    return <Navigate to="/profile" />;
+  }
+
   return (
     <div className="login-page">
       <div className="form">
@@ -117,7 +126,7 @@ const Register = () => {
                   name="username"
                   value={username}
                   onChange={onChangeUsername}
-                  validations={[required, vusername]}
+                  validations={[required, verifyUsername]}
                 />
               </div>
 
@@ -143,7 +152,7 @@ const Register = () => {
                   name="password"
                   value={password}
                   onChange={onChangePassword}
-                  validations={[required, vpassword]}
+                  validations={[required, verifyPassword]}
                 />
               </div>
 
@@ -162,13 +171,15 @@ const Register = () => {
             </div>
           )}
 
-          {message && (
-            <div className="error">
-              <div className={successful ? "alert alert-success" : "alert alert-danger"} role="alert">
-                {message}
+          {
+            message &&
+            (
+              <div className="form-group">
+                <div className={successful ? "success" : "error2"} role="alert">
+                  {message}
+                </div>
               </div>
-            </div>
-          )}
+            )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
       </div>

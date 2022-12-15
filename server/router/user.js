@@ -54,7 +54,9 @@ router.post("/create/user",
         verificationToken.save();
         await user.save();
 
-        res.status(200).json({ Status: "Successful", msg: "Account created", user: user._id })
+        // res.status(200).json({ Status: "Successful", msg: "Account created", user: user._id })
+        return res.status(200).json("Account successfully created")
+
     })
 
 
@@ -96,7 +98,7 @@ router.post("/forgot/password", async (req, res) => {
     const { email } = req.body;
     const user = await User.findOne({ email: email });
     if (!user) {
-        return res.status(400).json("User not found");
+        return res.status(400).json("Email not found");
     }
     const token = await ResetToken.findOne({ user: user._id });
     if (token) {
@@ -110,8 +112,8 @@ router.post("/forgot/password", async (req, res) => {
     });
     await resetToken.save();
 
-    return res.status(200).json(`http://localhost:3000/reset/password?token=${randomText}&_id=${user._id}`)
-    // return res.status(200).json(`http://localhost:5000/api/user/reset/password?token=${randomText}&_id=${user._id}`)
+    // return res.status(200).json(`http://localhost:3000/reset/password?token=${randomText}&_id=${user._id}`)
+    return res.status(200).json({ accessToken: resetToken, token: randomText });
 })
 
 
@@ -119,20 +121,20 @@ router.post("/forgot/password", async (req, res) => {
 router.put("/reset/password", async (req, res) => {
     const { token, _id } = req.query;
     if (!token || !_id) {
-        return res.status(400).json("Invalid req");
+        return res.status(401).json("Invalid req");
     }
     const user = await User.findOne({ _id: _id });
     if (!user) {
-        return res.status(400).json("user not found")
+        return res.status(402).json("user not found")
     }
     const resetToken = await ResetToken.findOne({ user: user._id });
     if (!resetToken) {
-        return res.status(400).json("Reset token is not found")
+        return res.status(403).json("Reset token is not found")
     }
 
     const isMatch = await bcrypt.compareSync(token, resetToken.token);
     if (!isMatch) {
-        return res.status(400).json("Token is not valid");
+        return res.status(404).json("Token is not valid");
     }
 
     const { password } = req.body;
