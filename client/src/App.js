@@ -20,6 +20,9 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Account from "./components/Account";
 import User from "./components/User";
+import Reset from "./components/Reset";
+import Forgot from "./components/Forgot"
+import Success from "./components/resetSuccess"
 
 
 import { logout } from "./actions/auth";
@@ -28,6 +31,7 @@ import { clearMessage } from "./actions/message";
 import EventBus from "./common/EventBus";
 
 const App = () => {
+  // let login = useLocation();
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -53,6 +57,7 @@ const App = () => {
       EventBus.remove("logout");
     };
   }, [currentUser, logOut]);
+
 
   return (
     <div>
@@ -137,6 +142,7 @@ const App = () => {
 
       <div className="container mt-3">
         <Routes>
+          <Route path="*" element={<LandingPage />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -144,6 +150,10 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/account" element={<Account />} />
           <Route path="/user" element={<User />} />
+          {/* {this.state.isAuth ? <Route path="/reset" element={<Reset />} /> : <Route path="/reset" element={<Login />} />} */}
+          <Route path="/reset" element={<Reset />} />
+          <Route path="/forgot" element={<Forgot />} />
+          <Route path="/success" element={<Success />} />
         </Routes>
       </div>
     </div>

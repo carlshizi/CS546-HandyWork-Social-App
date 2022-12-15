@@ -6,3 +6,5 @@ export const LOGOUT = "LOGOUT";
 
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+export const EMAIL_FOUND = "EMAIL_FOUND";
+export const EMAIL_NOTFOUND = "EMAIL_NOTFOUND";
