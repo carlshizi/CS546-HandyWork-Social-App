@@ -29,15 +29,11 @@ import { clearMessage } from "./actions/message";
 import EventBus from "./common/EventBus";
 import axios from "axios";
 
-// import { getAllPosts } from "./services/postService";
-
 
 const App = () => {
   const [handyMen, setHandyMen] = useState([]);
-  const API_URL = "http://localhost:5000/api/post/";
-
-  let handyMenArr;
   const navigate = useNavigate();
+  const API_URL = "http://localhost:5000/api/post/";
 
 const getAllPosts = async () => {
   axios
@@ -60,17 +56,6 @@ useEffect(() => {
   const dispatch = useDispatch();
 
   let location = useLocation();
-
-  // const searchAllHandyMen = async () => {
-  //   let handyMenArr;
-
-  //   axios
-  //   .get(API_URL + "getAll")
-  //   .then(response => {handyMenArr = response})
-  //   .catch(error => {console.log(error)});
-
-  //   navigate("/search", {state: {handyMen: handyMenArr}});
-  // };
 
   useEffect(() => {
     if (["/login", "/register"].includes(location.pathname)) {
