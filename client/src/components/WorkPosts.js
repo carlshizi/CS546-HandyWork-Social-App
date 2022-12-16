@@ -12,6 +12,7 @@ const WorkPosts = () => {
   const [postDescription, setDescription] = useState("");
 
   const { user: currentUser } = useSelector((state) => state.auth);
+  console.log("currentUser: ", currentUser.other.username);
 
   const locationChangeHandler = (event) => {
     setLocation(event.target.value);
@@ -29,7 +30,7 @@ const WorkPosts = () => {
     // const createPostResponse = await createPost("test", location, postDescription);
 
     const reqToPost = {
-      username: "KolaTest",
+      username: currentUser.other.username,
       location: location,
       message: postDescription
     };
@@ -62,20 +63,31 @@ const WorkPosts = () => {
           <strong>User</strong>
         </h3>
       </header>
+      <h3>Create a Work Request</h3>
       <Form onSubmit={submitHandler}>
+        <Form.Label htmlFor="inputUserReadOnly">User</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder= {currentUser.other.username}
+          aria-label="User / Disabled input "
+          disabled
+          readOnly
+        />
         <Form.Label htmlFor="inputLocation">Location</Form.Label>
-        <Form.Control 
+        <Form.Control
+          placeholder="City/County/Region" 
           type="text" 
           onChange={locationChangeHandler} 
           value={location}
         />
         <Form.Label htmlFor="inputMessage">Message/Description</Form.Label>
-        <Form.Control 
+        <Form.Control
+          placeholder="e.g. My specialties include..." 
           type="text" 
           onChange={descriptionChangeHandler} 
           value={postDescription}
         />
-        <Button type="submit">
+        <Button className="mt-3" type="submit">
           Submit
         </Button>
       </Form>
