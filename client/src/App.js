@@ -20,7 +20,7 @@ import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Account from "./components/Account";
-import User from "./components/User";
+import WorkPosts from "./components/WorkPosts";
 import HandyManPage from "./components/HandyManPage";
 import Reset from "./components/Reset";
 import Forgot from "./components/Forgot"
@@ -103,8 +103,8 @@ useEffect(() => {
 
           {currentUser && (
             <li className="nav-item">
-              <Link to={"/user"} className="nav-link">
-                User
+              <Link to={"/work"} className="nav-link">
+                Work
               </Link>
             </li>
           )}
@@ -174,7 +174,7 @@ useEffect(() => {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/user" element={<User />} />
+          <Route path="/work" element={<WorkPosts />} />
           <Route path="/search" element={<HandyManPage />} />
           {/* {this.state.isAuth ? <Route path="/reset" element={<Reset />} /> : <Route path="/reset" element={<Login />} />} */}
           <Route path="/reset" element={<Reset />} />

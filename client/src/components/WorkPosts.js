@@ -7,7 +7,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000/api/post/";
 
-const User = () => {
+const WorkPosts = () => {
   const [location, setLocation] = useState("");
   const [postDescription, setDescription] = useState("");
 
@@ -83,4 +83,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default WorkPosts;
