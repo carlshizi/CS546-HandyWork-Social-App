@@ -326,5 +326,24 @@ router.get("/fof/user/:id", async (req, res) => {         // verifyToken
     }
 })
 
+// Get user by ID
+router.get("/:username", async (req, res) => {
+    const allUser = await User.find();
+    if (allUser.length === 0) {
+        return res.status(400).json("Server has no users")
+    }
+
+    try {
+        const user = await User.findOne({ username: req.params.username.toLowerCase() });
+        if (!user) {
+            return res.status(400).json("Invalid user")
+        }
+
+        return res.status(200).json(user)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
 
 module.exports = router;
