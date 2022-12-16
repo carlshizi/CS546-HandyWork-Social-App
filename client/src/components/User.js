@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Navigate } from 'react-router-dom';
+import React, { useState } from "react";
 import { Form, Button } from 'react-bootstrap';
 import { useSelector } from "react-redux";
+import { createPost } from "../services/postService";
+import axios from "axios";
+
+const API_URL = "http://localhost:5000/api/post/";
 
 const User = () => {
   const [location, setLocation] = useState("");
@@ -17,12 +20,34 @@ const User = () => {
     setDescription(event.target.value);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
+    console.log("location: ", location);
+    console.log("description: ", postDescription);
+
+    // const createPostResponse = await createPost("test", location, postDescription);
+
+    const reqToPost = {
+      username: "KolaTest",
+      location: location,
+      message: postDescription
+    };
+
+    console.log("Attempted post: ", reqToPost);
+  
+    const response = await axios
+              .post((API_URL + 'create/post'), reqToPost)
+              .catch((error) => console.log('Error: ', error));
+          if (response) {
+              console.log(response);
+          }
+
     setLocation("");
     setDescription("");
 
-    alert("Thank you! Your handy work request was successfully submitted!");
+    if(response){
+      alert("Thank you! Your handy work request was successfully submitted!");
+    }
   };
   // if (!currentUser) {
   //   return <Navigate to="/login" />;

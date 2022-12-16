@@ -13,12 +13,13 @@ const crypto = require("crypto");
 
 router.post("/create/post",
     body('username'),
+    body('location'),
     body('message'),
     async (req, res) => {
-        const error = validationResult(req);
-        if (!error.isEmpty()) {
-            return res.status(400).json(error)
-        }
+        // const error = validationResult(req);
+        // if (!error.isEmpty()) {
+        //     return res.status(400).json(error)
+        // }
         //   try {
 
         let msg = await Post.findOne({ postMessage: req.body.message });
@@ -28,6 +29,7 @@ router.post("/create/post",
 
         post = await Post.create({
             username: req.body.username,
+            location: req.body.location,
             postMessage: req.body.message
         })
         // const accessToken = jwt.sign({
