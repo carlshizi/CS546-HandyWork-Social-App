@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
+const User = require("../models/User");
 const graph = require("../utils/Graph")
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
@@ -27,6 +28,11 @@ router.post("/create/post",
             return res.status(400).json("That message already exists");
         };
 
+        let user = await User.findOne({ username: req.body.username});
+        if(!user){
+            return res.status(400).json("No user with that username exists. This user CANNOT make a handy work post");
+        }
+
         post = await Post.create({
             username: req.body.username,
             location: req.body.location,
@@ -44,6 +50,8 @@ router.post("/create/post",
         // });
         // verificationToken.save();
         await post.save();
+
+        await User.findOneAndUpdate({username: req.body.username}, {$addToSet : {workPosts: post}})
 
         res.status(200).json({ Status: "Successful", msg: "Post created", post: post._id })
     })
