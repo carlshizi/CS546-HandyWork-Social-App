@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from 'react-bootstrap';
 import { useSelector } from "react-redux";
+import { Navigate } from 'react-router-dom';
 import { createPost } from "../services/postService";
 import axios from "axios";
 
@@ -49,9 +50,10 @@ const User = () => {
       alert("Thank you! Your handy work request was successfully submitted!");
     }
   };
-  // if (!currentUser) {
-  //   return <Navigate to="/login" />;
-  // }
+
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className="container">
