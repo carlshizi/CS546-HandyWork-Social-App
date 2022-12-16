@@ -149,7 +149,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/user" element={<User />} />
+          <Route path="/user/:username" element={<User />} />
           {/* {this.state.isAuth ? <Route path="/reset" element={<Reset />} /> : <Route path="/reset" element={<Login />} />} */}
           <Route path="/reset" element={<Reset />} />
           <Route path="/forgot" element={<Forgot />} />

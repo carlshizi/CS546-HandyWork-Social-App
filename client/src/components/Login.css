@@ -227,6 +227,16 @@ img {
   z-index: 2;
 }
 
+.regError3 {
+  font-size: 20px;
+  color: rgb(168, 17, 17);
+  /* position: absolute; */
+  margin-top: 15px;
+  left: auto;
+  /* text-align: center; */
+  z-index: 2;
+}
+
 /* .regErrorDiv{
    display: flex;
    justify-content: center;
