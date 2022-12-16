@@ -25,6 +25,7 @@ import HandyManPage from "./components/HandyManPage";
 import Reset from "./components/Reset";
 import Forgot from "./components/Forgot"
 import Success from "./components/resetSuccess"
+import User from "./components/User"
 
 
 import { logout } from "./actions/auth";
@@ -176,7 +177,7 @@ useEffect(() => {
           <Route path="/account" element={<Account />} />
           <Route path="/work" element={<WorkPosts />} />
           <Route path="/sear/:usernamech" element={<HandyManPage />} />
-          {/* {this.state.isAuth ? <Route path="/reset" element={<Reset />} /> : <Route path="/reset" element={<Login />} />} */}
+          <Route path="/user/:username" element={<User />} />
           <Route path="/reset" element={<Reset />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/success" element={<Success />} />
