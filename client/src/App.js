@@ -176,7 +176,7 @@ useEffect(() => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/account" element={<Account />} />
           <Route path="/work" element={<WorkPosts />} />
-          <Route path="/sear/:usernamech" element={<HandyManPage />} />
+          <Route path="/search" element={<HandyManPage />} />
           <Route path="/user/:username" element={<User />} />
           <Route path="/reset" element={<Reset />} />
           <Route path="/forgot" element={<Forgot />} />
