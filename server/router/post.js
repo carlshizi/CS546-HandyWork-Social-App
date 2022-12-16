@@ -14,13 +14,18 @@ const crypto = require("crypto");
 
 router.post("/create/post",
     body('username'),
-    body('location'),
-    body('message'),
+    body('location')
+        .isLength({ min: 3, max: 30 })
+        .isEmpty()
+        .isAlpha(),
+    body('message')
+        .isLength({ min: 6, max: 100 })
+        .isEmpty(),
     async (req, res) => {
-        // const error = validationResult(req);
-        // if (!error.isEmpty()) {
-        //     return res.status(400).json(error)
-        // }
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            return res.status(400).json(error)
+        }
         //   try {
 
         let msg = await Post.findOne({ postMessage: req.body.message });
