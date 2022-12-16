@@ -9,6 +9,27 @@ const getAllPosts = async () => {
   .catch(error => {return error});
 };
 
+const createPost = async (username, location, message) => {
+
+  const reqToPost = {
+    username: username,
+    location: location,
+    message: message
+  };
+
+  console.log("Attempted post: ", reqToPost);
+
+  const response = await axios
+            .post((API_URL + 'create/post'), reqToPost)
+            .catch((error) => console.log('Error: ', error));
+        if (response) {
+            console.log(response);
+        }
+
+  return response;
+}
+
 export {
-  getAllPosts
+  getAllPosts,
+  createPost
 };
