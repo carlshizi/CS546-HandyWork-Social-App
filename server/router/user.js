@@ -11,6 +11,32 @@ const JWTSEC = "#2@!@$ndja45883 r7##";
 const ResetToken = require("../models/ResetToken");
 const crypto = require("crypto");
 
+// handle photo
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function(req, file, callback){
+        callback(null, './uploads/');
+    },
+    filename: function(req, file, callback) {
+        callback(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
+    }
+});
+const fileFilter = (req, file, cb) => {
+    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+        cb(null, true);
+    } else{
+        cb(new Error('Only JPEG or PNG files allowed'), false);
+    }
+}
+const upload = multer({
+    storage,
+    limit: {
+        fileSize: 1024 * 1024 * 5
+    },
+    fileFilter
+});
+
+
 
 router.post("/create/user",
     body('username')
@@ -223,23 +249,50 @@ router.get("/following/:id", verifyToken, async (req, res) => {
 })
 
 
+// // Update User Profile
+// router.put("/update/:id", verifyToken, async (req, res) => {
+//     try {
+//         if (req.params.id === req.user.id) {
+//             if (req.body.password) {
+//                 const salt = await bcrypt.genSalt(10);
+//                 const hash = await bcrypt.hash(req.body.password, salt);
+//                 req.body.password = hash;
+//                 const updateuser = await User.findByIdAndUpdate(req.params.id, {
+//                     $set: req.body
+//                 });
+//                 await updateuser.save();
+//                 res.status(200).json(updateuser);
+//             }
+//         } else {
+//             return res.status(400).json("Forbidden Access")
+//         }
+//     } catch (error) {
+//         return res.status(500).json("Internal server error")
+//     }
+// })
+
 // Update User Profile
-router.put("/update/:id", verifyToken, async (req, res) => {
+router.put("/update/:id", verifyToken, upload.single('image'), async (req, res) => {
+    console.log(req.file)
     try {
-        if (req.params.id === req.user.id) {
-            if (req.body.password) {
-                const salt = await bcrypt.genSalt(10);
-                const hash = await bcrypt.hash(req.body.password, salt);
-                req.body.password = hash;
-                const updateuser = await User.findByIdAndUpdate(req.params.id, {
-                    $set: req.body
-                });
-                await updateuser.save();
-                res.status(200).json(updateuser);
+        // if (req.params.id === req.user.id) {
+            // if (req.body.password) {
+            //     const salt = await bcrypt.genSalt(10);
+            //     const hash = await bcrypt.hash(req.body.password, salt);
+            //     req.body.password = hash;
+            // }
+
+            if(req.file){
+                req.body.image = `http://localhost:5000/${req.file.path}`;
             }
-        } else {
-            return res.status(400).json("Forbidden Access")
-        }
+        const updateuser = await User.findByIdAndUpdate(req.params.id, {
+            $set: req.body
+        });
+
+        await updateuser.save();
+        res.status(200).json(updateuser);
+        // }
+        
     } catch (error) {
         return res.status(500).json("Internal server error")
     }
