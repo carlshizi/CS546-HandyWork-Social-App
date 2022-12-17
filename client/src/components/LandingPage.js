@@ -13,7 +13,7 @@ const Landing = () => {
       <header>
         <h3>HandyWork</h3>
         <p className="purpose">A website designed to connect you to a local, trustworthy handyman.</p>
-        <a href="/Register"  id="registerBtn" class="registerBtn">Sign Up</a>
+        <a href="/Register"  id="registerBtn" class="registerBtn" >Sign Up</a>
       </header>
       <div className="img-container">
         <img className="homeImg" alt="handyman fixing sink" title="Sink Repairs" src={sinkpic}></img>   
