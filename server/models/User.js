@@ -13,6 +13,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    profile: {
+        type: String
+    },
+    image: {
+        type: String
+    },
     Friends: [
         String
         // username: {type: String, default: ''}
@@ -23,17 +29,14 @@ const UserSchema = new mongoose.Schema({
     receivedRequests: {
         type: Array,
     },
-    Followers:{
-        type: Array,
-    },
-    Following:{
-        type: Array,
-    },
-    workPosts:{
+    Followers: {
         type: Array
     },
-    profile: {
-        type: String,
+    Following: {
+        type: Array
+    },
+    workPosts: {
+        type: Array
     }
 })
 

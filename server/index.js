@@ -7,6 +7,7 @@ const cors = require("cors");
 // dotenv.config();
 const bodyParser = require('body-parser')
 
+app.use('/uploads', express.static(__dirname + '/uploads'))
 app.use(express.urlencoded({extended: true}));
 
 // app.use(bodyParser.urlencoded({
