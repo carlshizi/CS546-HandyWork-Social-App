@@ -1,0 +1,47 @@
+.EditProfile-form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 500px;
+    max-height: fit-content;
+    margin: 0 auto 100px;
+    padding: 25px; 
+}
+
+.profilepic-container{
+    text-align: center;
+}
+
+.profilepic {
+    border-radius: 50%; 
+    margin: 0; 
+    margin: 20px 0;
+}
+
+.regError2{
+    font-size: 15px;
+    color: red;
+    /* position: absolute; */
+    margin-top: -2px;
+    left: auto;
+    /* text-align: center; */
+    z-index: 2;
+  }
+
+.EditProfile-btn {
+    text-transform: uppercase;
+    background: #b2b2b2;
+    outline: 0;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    width: 50%; 
+    margin-top: 20px; 
+}
+.EditProfile-btn:hover,.EditProfile-btn:active,.EditProfile-btn:focus {
+    background: #9c9d9c;
+/* #8ca0ca */
+}

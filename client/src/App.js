@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import logo from './components/img/Handywork2ii.png'
 
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./components/Login.css"
 import "./App.css";
@@ -17,15 +18,15 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
-import Profile from "./components/Profile";
+import ProfileAPI from "./components/ProfileAPI";
 import Account from "./components/Account";
 import User from "./components/User";
-
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 import EventBus from "./common/EventBus";
+
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -141,7 +142,7 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<ProfileAPI />} />
           <Route path="/account" element={<Account />} />
           <Route path="/user" element={<User />} />
         </Routes>

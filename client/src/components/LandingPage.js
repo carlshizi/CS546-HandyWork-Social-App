@@ -7,7 +7,7 @@ import windowpic from "./img/LP-windowrepair.jpg";
 
 const Landing = () => {
  
-
+  
   return (
     <div className="landing-page">
       <header>
