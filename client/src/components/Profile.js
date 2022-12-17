@@ -11,6 +11,7 @@ const Profile = () => {
 
   return (
     <div className="container">
+      
       <header className="jumbotron">
         <h3>
           <strong>Profile</strong>
