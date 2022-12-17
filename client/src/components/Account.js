@@ -20,13 +20,10 @@ const Account = () => {
 
   const API_URL = "http://localhost:5000/api/post/";
   const API_URL_USER = "http://localhost:5000/api/user/";
-  
-
 
   if (!currentUser) {
     return <Navigate to="/login" />;
   }
-
 
   const removePost = async (post) => {
     console.log("Post to be removed: ", post);
