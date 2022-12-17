@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Button, Collapse } from 'react-bootstrap';
 
-const removePost = async (canDelete) => {
-    if(canDelete){
-        return;
-    }
-}
+export default function HandyManComponent({ handyMan, canDelete, removePost }) {
 
-export default function HandyManComponent({ handyMan, canDelete }) {
-
-    console.log("Can delete: ", canDelete);
     const [open, setOpen] = useState(false);
 
     return (
@@ -41,7 +34,7 @@ export default function HandyManComponent({ handyMan, canDelete }) {
                 </Collapse>
                 {canDelete ?
                     <Button className='mt-4'
-                        onClick={() => removePost()} 
+                        onClick={() => removePost(handyMan)} 
                         variant="danger" 
                     >Click to Delete</Button> : 
                     <span></span>
