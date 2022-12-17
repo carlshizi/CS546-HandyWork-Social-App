@@ -11,20 +11,22 @@ const JWTSEC = "#2@!@$ndja45883 r7##";
 const ResetToken = require("../models/ResetToken");
 const crypto = require("crypto");
 
+const onlyLettersSpaces = (str) => {
+    return /^[A-Za-z\s]*$/.test(str);
+  }
 
 router.post("/create/post",
     body('username'),
     body('location')
         .isLength({ min: 3, max: 30 })
-        .isEmpty()
-        .isAlpha(),
+        .isEmpty(),
     body('message')
         .isLength({ min: 6, max: 100 })
         .isEmpty(),
     async (req, res) => {
         const error = validationResult(req);
-        if (!error.isEmpty()) {
-            return res.status(400).json(error)
+        if (!error.isEmpty() || !onlyLettersSpaces(req.body.username)) {
+            return res.status(400).json("Bad Request: Please use valid inputs")
         }
         //   try {
 
@@ -84,6 +86,28 @@ router.get("/getAll",
 
         res.status(200).json({ posts: posts });
     })
+
+router.delete("/remove",
+async (req, res) => {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json(error)
+    }
+    //   try {
+
+    let user = await User.findOne({ _id: req.body.id });
+    if(!user){
+        return res.status(400).json("User does not exist!")
+    }
+
+    try {
+        await User.findOneAndUpdate({ _id: req.body.id }, {$pull: {workPosts: req.body.post}})        
+        res.status(200).json({ posts: posts });
+    } catch (error) {
+        res.status(500).json("An error occurred during deletion of post")        
+    }
+
+})
 
 
 module.exports = router;
