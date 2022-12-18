@@ -7,19 +7,41 @@ import axios from "axios";
 
 const Account = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
-  const [myPosts, setPosts] = useState(currentUser.other.workPosts);
+  const [myPosts, setPosts] = useState([]);
 
   console.log("My posts: ", myPosts);
   console.log("Current user: ", currentUser);
-  
-  useEffect(() => {
-  }, [myPosts]);
-  
-  const cookie_key = "navigate"   // clear cookie for navigating to reset page
-  delete_cookie(cookie_key);
 
   const API_URL = "http://localhost:5000/api/post/";
   const API_URL_USER = "http://localhost:5000/api/user/";
+
+  // const responseUser = async () => {
+  //   await axios
+  //     .get(API_URL + `get/${currentUser.other._id}`)
+  //     .catch((error) => console.log('Error: ', error));
+  //   if (responseUser) {
+  //       console.log("ResponseUser: ", responseUser);
+  //       setPosts(responseUser.workPosts);
+  //   }
+  // }
+  
+  useEffect(() => {
+
+    const getUserPosts = async () => {
+      const responseUser = await axios
+        .get(API_URL + `get/${currentUser.other._id}`)
+        .catch((error) => console.log('Error: ', error));
+      if (responseUser) {
+          console.log("ResponseUser: ", responseUser);
+          setPosts(responseUser.data.user.workPosts);
+      }
+    };
+
+    getUserPosts();
+  }, []);
+  
+  const cookie_key = "navigate"   // clear cookie for navigating to reset page
+  delete_cookie(cookie_key);
 
   if (!currentUser) {
     return <Navigate to="/login" />;
