@@ -1,19 +1,27 @@
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import HandymanIcon from '@mui/icons-material/Handyman';
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
+import Stack from '@mui/material/Stack';
 import logo from './components/img/Handywork2ii.png'
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./components/Login.css"
 import "./App.css";
-// import 'bootstrap';
-// import 'bootstrap/dist/css/bootstrap.css';
-// import 'bootstrap/dist/js/bootstrap.js';
-// import $ from 'jquery';
-// import Popper from 'popper.js';
-
 
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -35,33 +43,33 @@ import { clearMessage } from "./actions/message";
 
 import EventBus from "./common/EventBus";
 import axios from "axios";
+import { borderRight } from '@mui/system';
 
 
 
-const App = () => {
-  const [handyMen, setHandyMen] = useState([]);
+
+function ResponsiveAppBar() {
+
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
-  const API_URL = "http://localhost:5000/api/post/";
 
-const getAllPosts = async () => {
-  axios
-  .get(API_URL + "getAll")
-  .then(response => {
-    let posts = response.data.posts;
-    if(posts.length == 0){
-      alert("There are currently no Handy Man work listings")
-    }
-    setHandyMen(posts);
-  })
-  .catch(error => {console.log(error)});
-};
 
-useEffect(() => {
-  if(handyMen.length > 0){
-    console.log(handyMen);
-    navigate("/search", {state: {handyMen : handyMen}});
-  }
-}, [handyMen]);
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
 
   // let login = useLocation();
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -90,102 +98,135 @@ useEffect(() => {
     };
   }, [currentUser, logOut]);
 
+  const currentUserMenu = () => {
+    if (currentUser) {
+      return <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+        {pages.map((page) => (
+          <Button
+            key={page.key}
+            onClick={handleCloseNavMenu}
+            sx={{ my: 2, color: 'white', display: 'block' }}
+            href={page.href}
+          >
+            {page.key}
+          </Button>
+        ))}
+      </Box>
+    }
+  }
+
+  const pages = [{ key: 'Home', href: "/home" }, { key: 'Search', href: "/searchbar" }];
+
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <HandymanIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}>
+              HANDYWORK
+            </Typography>
 
-        <Link to={"/"} className="navbar-brand">
-          <img src={logo} className='logo' alt="" />
-        </Link>
 
-        <div className="navbar-nav mr-auto">
-          <li className="nav-item">
-            {/* <Link to={"/landing"} className="nav-link">
-              Landing Page
-            </Link> */}
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+              >
+                {pages.map((page) => (
+                  <MenuItem key={page.key} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page.key}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
 
-          </li>
+            </Box>
 
 
-          {currentUser && (
-            <li className="nav-item">
-              <Link to={"/work"} className="nav-link">
-                Work
-              </Link>
-            </li>
-          )}
-          {currentUser && (
-            <li className="nav-item">
-              <Link to={"/account"} className="nav-link">
-                Account
-              </Link>
-            </li>
-          )}
-        </div>
+            {currentUserMenu()}
 
-        {currentUser ? (
-          <div className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to={"/profile"} className="nav-link">
-                {currentUser.username}
-              </Link>
-              {/* <Link to={"/account"} className="nav-link">
-                {currentUser.username}
-              </Link> */}
-            </li>
-            <li className="nav-item">
-              <a href="/login" className="nav-link" onClick={logOut}>
-                Sign out
-              </a>
-            </li>
-          </div>
-        ) : (
-          <div className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to={"/login"} className="nav-link">
-                Login
-              </Link>
-            </li>
+            <Box sx={{ flexGrow: 0 }}>
+              {/* <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip> */}
 
-            <li className="nav-item">
-              <Link to={"/register"} className="nav-link">
-                Sign Up
-              </Link>
-            </li>
-          </div>
 
-          // <div className="dropdown">
-          //   <a
-          //     className="btn btn-secondary dropdown-toggle"
-          //     href="#"
-          //     role="button"
-          //     id="dropdownMenuLink"
-          //     data-toggle="dropdown"
-          //     aria-haspopup="true"
-          //     aria-expanded="false"
-          //   >
-          //     Dropdown
-          //   </a>
-          //   <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          //     <a className="dropdown-item" href="/login">
-          //       Login
-          //     </a>
-          //     <a className="dropdown-item" href="/register">
-          //       Sign Up
-          //     </a>
-          //   </div>
-          // </div>
-        )}
-      </nav>
 
+              {currentUser ? (
+                  <Stack direction="row" spacing={2}>
+                <Avatar alt="Remy Sharp" src={currentUser.other.image} />
+                <div style={{marginTop: "8px"}}>
+                  <Link to={"/profile"}>
+                    {currentUser.username}
+                  </Link>
+
+                  <a href="/login" onClick={logOut} style={{ color: 'white', fontSize: '14px' }}>
+                    SIGN OUT
+                  </a>
+                </div>
+              </Stack>
+              ) : (
+                <div style={{ position: "absolute", right: "0", top: "20px" }}>
+                  <Link to={"/login"} style={{ color: 'white', fontSize: '14px' }}>
+                    LOGIN
+                  </Link>
+                  <Link to={"/register"} style={{ color: 'white', fontSize: '14px', marginLeft: "20px" }}>
+                    SIGN UP
+                  </Link>
+                </div>
+              )}
+
+            </Box>
+
+          </Toolbar>
+        </Container>
+      </AppBar>
       <div className="container mt-3">
         <Routes>
-          <Route path="*" element={<LandingPage />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/account" element={<Account />} />
@@ -195,14 +236,12 @@ useEffect(() => {
           <Route path="/reset" element={<Reset />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/success" element={<Success />} />
-          <Route path="/searchbar" element={<Search/>
-
-} />
+          <Route path="/searchbar" element={<Search />} />
         </Routes>
       </div>
-      {/* <Button onClick={() => getAllPosts()} >Click me for all HandyMen</Button> */}
+
     </div>
   );
-};
+}
+export default ResponsiveAppBar;
 
-export default App;

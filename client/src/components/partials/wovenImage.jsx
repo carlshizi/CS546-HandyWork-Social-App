@@ -23,6 +23,7 @@ export default function TitlebarBelowMasonryImageList() {
         // console.log("Users: ", list.data[1]);
         for (let i = 1; i < list.data.length; ++i) {
           let temp = {
+            id: list.data[i]._id,
             img: list.data[i].image,
             title: list.data[i].username,
             author: list.data[i].username
@@ -44,7 +45,7 @@ export default function TitlebarBelowMasonryImageList() {
         {items.map((item) => (
           <CardActionArea href="hotmail.com">
 
-            <ImageListItem key={item.img}>
+            <ImageListItem key={item.id}>
               <img
                 src={`${item.img}?w=248&fit=crop&auto=format`}
                 srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
