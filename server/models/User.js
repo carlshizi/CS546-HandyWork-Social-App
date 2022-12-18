@@ -35,6 +35,9 @@ const UserSchema = new mongoose.Schema({
     Following: {
         type: Array
     },
+    profile: {
+        type: Object
+    },     
     workPosts: {
         type: Array
     }

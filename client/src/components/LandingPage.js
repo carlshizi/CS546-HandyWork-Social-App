@@ -19,13 +19,13 @@ const Landing = () => {
     return <Navigate to="/profile" />;
 }
  
-
+  
   return (
     <div className="landing-page">
       <header>
         <h3>HandyWork</h3>
         <p className="purpose">A website designed to connect you to a local, trustworthy handyman.</p>
-        <a href="/Register"  id="registerBtn" class="registerBtn">Sign Up</a>
+        <a href="/Register"  id="registerBtn" class="registerBtn" >Sign Up</a>
       </header>
       
       <div className="img-container">

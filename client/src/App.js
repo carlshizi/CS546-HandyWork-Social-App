@@ -4,6 +4,7 @@ import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom"
 import { Button } from 'react-bootstrap';
 import logo from './components/img/Handywork2ii.png'
 
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./components/Login.css"
 import "./App.css";
@@ -18,7 +19,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
-import Profile from "./components/Profile";
+import Profile from "./components/ProfileAPI";
+import EditProfile from "./components/EditProfile";
 import Account from "./components/Account";
 import WorkPosts from "./components/WorkPosts";
 import HandyManPage from "./components/HandyManPage";
@@ -27,12 +29,12 @@ import Forgot from "./components/Forgot"
 import Success from "./components/resetSuccess"
 import User from "./components/User"
 
-
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 import EventBus from "./common/EventBus";
 import axios from "axios";
+
 
 
 const App = () => {
@@ -174,6 +176,7 @@ useEffect(() => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/account" element={<Account />} />
           <Route path="/work" element={<WorkPosts />} />
           <Route path="/search" element={<HandyManPage />} />
