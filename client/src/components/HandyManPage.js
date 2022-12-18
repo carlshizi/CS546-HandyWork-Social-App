@@ -15,7 +15,7 @@ function HandyManPage() {
     <Container>
       <div className="returnNum">{`Total results returned: ${handyMen.length}`}</div>
       {handyMen.map(handyMan => {
-        return <HandyManComponent key={handyMan._id} handyMan={handyMan} />
+        return <HandyManComponent key={handyMan._id} handyMan={handyMan} canDelete={false}/>
       })}
     </Container>
   );

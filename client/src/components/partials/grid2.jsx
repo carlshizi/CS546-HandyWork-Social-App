@@ -7,7 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import CustomizedInputBase from './searchBar';
 import IconButton from '@mui/material/IconButton';
-import WovenImageList from "./wovenImage"
+import WovenImageList from "./wovenImage";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
