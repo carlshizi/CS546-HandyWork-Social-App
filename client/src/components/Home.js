@@ -31,8 +31,7 @@ export default function BasicGrid() {
         </div>
 
         <div style={{ marginLeft: "" }}>
-          <MediaCard  person={{ currentUser }}
-          />
+          {/* <MediaCard  person={{ currentUser }}/> */}
         </div>
       {/* </div> */}
 
