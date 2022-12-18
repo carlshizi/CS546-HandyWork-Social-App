@@ -71,7 +71,7 @@ function Search() {
 	  	return (
 	  		<Scroll>
           {/* <a href="http://www.hotmail.com"></a> */}
-	  			<SearchList href="hotmail.com" filteredPersons={filteredPersons} />
+	  			<SearchList filteredPersons={filteredPersons} />
 	  		</Scroll>
 	  	);
 	  }
