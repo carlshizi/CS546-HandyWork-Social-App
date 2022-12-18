@@ -25,7 +25,7 @@ export default function RowAndColumnSpacing() {
 
 
           {/* <br></br> */}
-          <h3>HandyMen List</h3>
+          <h3>Current Posts</h3>
         </Grid>
         <Grid item xs={6}>
           <h3>Suggested Users</h3>
