@@ -89,7 +89,7 @@ const main = async () => {
         {
             username: "Sammy",
             location: "Trenton, NJ",
-            postMessage: "I've build my own house before"
+            postMessage: "I've built my own house before"
         },
         {
             username: "Kim",
