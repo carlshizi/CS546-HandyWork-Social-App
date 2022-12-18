@@ -15,6 +15,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 // import { Button } from 'react-bootstrap';
+import Stack from '@mui/material/Stack';
 import logo from './components/img/Handywork2ii.png'
 
 
@@ -192,8 +193,9 @@ function ResponsiveAppBar() {
 
 
               {currentUser ? (
-
-                <div>
+                  <Stack direction="row" spacing={2}>
+                <Avatar alt="Remy Sharp" src={currentUser.other.image} />
+                <div style={{marginTop: "8px"}}>
                   <Link to={"/profile"}>
                     {currentUser.username}
                   </Link>
@@ -202,6 +204,7 @@ function ResponsiveAppBar() {
                     SIGN OUT
                   </a>
                 </div>
+              </Stack>
               ) : (
                 <div style={{ position: "absolute", right: "0", top: "20px" }}>
                   <Link to={"/login"} style={{ color: 'white', fontSize: '14px' }}>
@@ -236,8 +239,6 @@ function ResponsiveAppBar() {
           <Route path="/searchbar" element={<Search />} />
         </Routes>
       </div>
-
-
 
     </div>
   );

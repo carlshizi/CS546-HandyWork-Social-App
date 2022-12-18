@@ -28,7 +28,7 @@ function Search() {
         .catch((error) => console.log(error));
       if (list) {
         // console.log("Users: ", list.data[1]);
-        for (let i = 1; i < list.data.length; ++i) {
+        for (let i = 0; i < list.data.length; ++i) {
           let temp = {
             id: list.data[i]._id,
             imgPath: list.data[i].image,
