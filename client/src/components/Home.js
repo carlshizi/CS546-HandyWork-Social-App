@@ -25,30 +25,16 @@ export default function BasicGrid() {
 
   return (
     <>
-      <div style={{ display: "flex", marginLeft: "98px" }}>
+      {/* <div style={{ display: "flex", marginLeft: "98px" }}> */}
         <div style={{}}>
-          <Paper      // search bar
-            component="form"
-            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 374 }}
-          >
 
-            <InputBase
-              sx={{ ml: 1, flex: 1 }}
-              placeholder="Search HandyWork"
-              inputProps={{ 'aria-label': 'search google maps' }}
-            />
-            <IconButton type="button" sx={{ p: '12px' }} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-          </Paper>
         </div>
 
-        <div style={{ marginLeft: "24px" }}>
-          <MediaCard
-            person={{ currentUser }}
+        <div style={{ marginLeft: "" }}>
+          <MediaCard  person={{ currentUser }}
           />
         </div>
-      </div>
+      {/* </div> */}
 
       <br></br>
       <RowAndColumnSpacing />

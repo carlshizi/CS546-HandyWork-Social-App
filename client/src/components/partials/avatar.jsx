@@ -37,8 +37,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const SmallAvatar = styled(Avatar)(({ theme }) => ({
-  width: 22,
-  height: 22,
+  width: 42,
+  height: 42,
   border: `2px solid ${theme.palette.background.paper}`,
 }));
 
@@ -49,7 +49,7 @@ export default function MediaCard({ person }) {
   // console.log(person)
 
   return (
-    <Card sx={{ maxWidth: 200, maxHeight: 53 }}>
+    <Card sx={{ maxWidth: 400, maxHeight: 53 }}>
       <CardContent>   
       <Stack direction="row" spacing={2}>
       <Stack direction="row" spacing={2}>
