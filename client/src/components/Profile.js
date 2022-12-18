@@ -1,32 +1,25 @@
-import React from "react";
+import {React} from "react";
 import {Navigate} from 'react-router-dom';
 import {useSelector} from "react-redux";
 
+
 // Internal imports
 import "./Profile.css";
-import "./EditProfile";
 import genericprofilepic from "./img/profilepic.jpg";
 
 const Profile = ({
-  stored,
+  stored, 
   startEditCallback
 }) => {
   const { user: currentUser } = useSelector((state) => state.auth);
   if (!currentUser) {
-    return <Navigate to="/login" />;
-  }
-
-  const handleProfilePic = (e) => {
-    
-    if(!stored.profilepic) {
-      stored.profilepic = genericprofilepic; 
-    } 
-    return stored.profilepic; 
-  }
+      return <Navigate to="/login" />;
+    }
 
   return (
     <div className="startprofile-container">
-     
+
+
      <div className="profile-canedit-content">
       <div className="profilepic-container">
         <img class="profilepic" src={genericprofilepic} width="170" height="170" alt= "Profile Pic"/>
@@ -37,29 +30,30 @@ const Profile = ({
       </p>
 
       <p>
-        <strong>Available Handyman?</strong> {stored.handyman}
+        <strong>Available Handyman?</strong> {stored.handyman} 
       </p>
 
       <p>
-        <strong>Education:</strong> {stored.education}
+        <strong>Skills:</strong> {stored.skills}
       </p>
 
       <p>
-        <strong>Work Background:</strong> {stored.work}
+        <strong>Bio:</strong> {stored.bio}
       </p>
 
       <p>
-        <strong>Contact Me:</strong> {stored.contacts}
+        <strong>Experiences:</strong> {stored.experience}
       </p>
 
       <p>
         <button 
           class="profile-btn"
-          onClick={startEditCallback}>
+          onClick={startEditCallback}
+          >
             Edit Profile</button>
       </p>
 
-      </div>
+      </div> 
 
       <div class="profile-user-content">
 

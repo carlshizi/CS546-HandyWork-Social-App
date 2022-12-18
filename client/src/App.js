@@ -18,7 +18,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
-import ProfileAPI from "./components/ProfileAPI";
+import Profile from "./components/ProfileAPI";
+import EditProfile from "./components/EditProfile";
 import Account from "./components/Account";
 import User from "./components/User";
 
@@ -142,7 +143,8 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<ProfileAPI />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/account" element={<Account />} />
           <Route path="/user" element={<User />} />
         </Routes>

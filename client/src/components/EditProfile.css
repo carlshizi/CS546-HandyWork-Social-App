@@ -8,16 +8,6 @@
     padding: 25px; 
 }
 
-.profilepic-container{
-    text-align: center;
-}
-
-.profilepic {
-    border-radius: 50%; 
-    margin: 0; 
-    margin: 20px 0;
-}
-
 .regError2{
     font-size: 15px;
     color: red;

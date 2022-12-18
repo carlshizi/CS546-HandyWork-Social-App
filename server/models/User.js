@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
         type: Array,
     },
     profile: {
-        type: String,
+        type: Object,
     }
 })
 

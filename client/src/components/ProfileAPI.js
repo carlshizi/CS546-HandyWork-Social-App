@@ -6,16 +6,15 @@ import {useSelector} from "react-redux";
 
 function ProfileAPI() {
     const [editMode, setEditMode] = useState(false);
-    const [profilepic, setProfilePic] = useState(null);
     const [name, setName] = useState("FirstName LastName");
     const [handyman, setHandyman] = useState("No");
-    const [education, setEducation] = useState("None");
-    const [work, setWork] = useState("None");
-    const [contacts, setContacts] = useState("None");
+    const [skills, setSkills] = useState("None");
+    const [bio, setBio] = useState("None");
+    const [experience, setExperience] = useState("None");
+  
+    const stored = {name, handyman, skills, bio, experience};
+
     const { user: currentUser } = useSelector((state) => state.auth);
-
-    const stored = {profilepic, name, handyman, education, work, contacts};
-
     if (!currentUser) {
         return <Navigate to="/login" />;
       }
@@ -23,12 +22,12 @@ function ProfileAPI() {
     function handleEditComplete(result) {
         console.log("handleEditComplete", result);
         if (result != null) {
-            setProfilePic(result.profilepic);
+            alert("you hace successfully changed your profile");
             setName(result.name);
             setHandyman(result.handyman);
-            setEducation(result.education);
-            setWork(result.work);
-            setContacts(result.contacts);
+            setSkills(result.skills);
+            setBio(result.bio);
+            setExperience(result.experience);
         }        
         setEditMode(false);
     }

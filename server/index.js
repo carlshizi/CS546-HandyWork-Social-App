@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose")
 const userRouter = require("./router/user");
+const profileRouter = require("./router/profile");
 // const PostRouter = require("./router/Post")
 const cors = require("cors");
 // dotenv.config();
@@ -33,6 +34,7 @@ console.log('Database status: \x1b[33m connected\x1b[0m')).catch(()=>{
 app.use(cors());
 app.use(express.json());
 app.use("/api/user" , userRouter);
+app.use("/api/profile" , profileRouter);
 // app.use("/api/post" , PostRouter );
 
 app.listen(5000 , ()=>{
