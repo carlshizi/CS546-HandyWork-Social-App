@@ -18,7 +18,7 @@ const Profile = ({
 
      <div className="profile-canedit-content">
       <div className="profilepic-container">
-        <img class="profilepic" src={image} 
+        <img className="profilepic" src={image} 
         width="170" height="170" alt= "Profile Pic"/>
       </div>
 
@@ -42,7 +42,7 @@ const Profile = ({
 
       <p>
         <button 
-          class="profile-btn"
+          className="profile-btn"
           onClick={startEditCallback}
           >
             Edit Profile</button>
@@ -50,7 +50,7 @@ const Profile = ({
 
       </div> 
 
-      <div class="profile-user-content">
+      <div className="profile-user-content">
 
         <p>
           <strong>Username:</strong> {currentUser.other.username}
@@ -59,7 +59,7 @@ const Profile = ({
         <strong>Friends:</strong>
         <ul>{currentUser.other.Friends.map((role, index) => <li key={index}>{role}</li>)}</ul>
 
-        <a href="./Reset" class="profile-btn">Edit Settings</a>
+        <a href="./Reset" className="profile-btn">Edit Settings</a>
     
       </div>
   
