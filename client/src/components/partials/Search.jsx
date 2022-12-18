@@ -29,14 +29,17 @@ function Search() {
       if (list) {
         // console.log("Users: ", list.data[1]);
         for (let i = 0; i < list.data.length; ++i) {
-          let temp = {
-            id: list.data[i]._id,
-            imgPath: list.data[i].image,
-            name: list.data[i].username,
-            email: list.data[i].email,
-            address: list.data[i].email
+          if(currentUser.other._id !== list.data[i]._id){
+            let temp = {
+              id: list.data[i]._id,
+              imgPath: list.data[i].image,
+              name: list.data[i].username,
+              email: list.data[i].email,
+              address: list.data[i].email
+            }
+            arr.push(temp)            
           }
-          arr.push(temp)
+
           // console.log(list.data[i].username)
         }
         setItems(arr);
