@@ -76,67 +76,19 @@ const main = async () => {
 
     const seedPosts = [
         //Generate 12 Posts
-        {
-            username: "Denzel",
-            location: "NYC",
-            postMessage: "I'm great with garages and doors"
-        },
-        {
-            username: "Denzel",
-            location: "NYC",
-            postMessage: "I'm also willing to negotiate pay"
-        },
-        {
-            username: "Sammy",
-            location: "Trenton, NJ",
-            postMessage: "I've built my own house before"
-        },
-        {
-            username: "Kim",
-            location: "Hoboken",
-            postMessage: "My specialty is doors. Also, I'm allergic to dogs."
-        },
-        {
-            username: "Mallen",
-            location: "New Brunswick, NJ",
-            postMessage: "My expected wage is $20 an hour"
-        },
-        {
-            username: "david02",
-            location: "Newark, NJ",
-            postMessage: "I'll do everything except plumbing issues"
-        },
-        {
-            username: "kadin",
-            location: "NYC",
-            postMessage: "Very good with kitchens"
-        },
-        {
-            username: "johan1",
-            location: "Manhattan",
-            postMessage: "Windows are my specialty"
-        },
-        {
-            username: "artolr",
-            location: "Queens",
-            postMessage: "Please don't be weird"
-        },
-        {
-            username: "adeline",
-            location: "Brooklyn",
-            postMessage: "Message me for pricing"
-        },
-        {
-            username: "kendal3",
-            location: "Bronx",
-            postMessage: "Any problem in the house, I can fix!"
-        },
-        {
-            username: "kate43",
-            location: "Hudson Yards",
-            postMessage: "Serious inquiries only please"
-        }        
-    ]
+        { username: "Denzel", location: "NYC", postMessage: "I'm great with garages and doors"},
+        { username: "Denzel", location: "NYC", postMessage: "I'm also willing to negotiate pay"},
+        { username: "Sammy", location: "Trenton, NJ", postMessage: "I've built my own house before"},
+        { username: "Kim", location: "Hoboken", postMessage: "My specialty is doors. Also, I'm allergic to dogs."},
+        { username: "Mallen", location: "New Brunswick, NJ", postMessage: "My expected wage is $20 an hour"},
+        { username: "david02", location: "Newark, NJ", postMessage: "I'll do everything except plumbing issues"},
+        { username: "kadin", location: "NYC", postMessage: "Very good with kitchens"},
+        { username: "johan1", location: "Manhattan", postMessage: "Windows are my specialty"},
+        { username: "artolr", location: "Queens", postMessage: "Please don't be weird"},
+        { username: "adeline", location: "Brooklyn", postMessage: "Message me for pricing"},
+        { username: "kendal3", location: "Bronx", postMessage: "Any problem in the house, I can fix!"},
+        { username: "kate43", location: "Hudson Yards", postMessage: "Serious inquiries only please"}        
+    ];
 
     await User.deleteMany({});
     await User.insertMany(seedUsers);
