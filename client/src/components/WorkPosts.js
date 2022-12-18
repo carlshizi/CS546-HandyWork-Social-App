@@ -83,12 +83,16 @@ const WorkPosts = () => {
               console.log(response);
           }
 
-    setLocation("");
-    setDescription("");
-
     if(response){
       alert("Thank you! Your handy work request was successfully submitted!");
     }
+    else{
+      alert("An error occurred during submission. Please try again later");
+    }
+    
+    setLocation("");
+    setDescription("");
+
   };
 
   if (!currentUser) {

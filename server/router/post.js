@@ -124,6 +124,7 @@ async (req, res) => {
 
     try {
         let updatedUser = await User.updateOne({_id : Types.ObjectId(req.params.id)}, {'$pull': {'workPosts' : { '_id': Types.ObjectId(req.body.post._id)}}})
+        let updatedPosts = await Post.deleteOne({_id: Types.ObjectId(req.body.post._id)})
         let updatedUserResponse = await User.findOne({ _id: req.params.id });       
         res.status(200).json({ updatedUser: updatedUserResponse });
     } catch (error) {
