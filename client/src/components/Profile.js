@@ -3,7 +3,6 @@ import {useSelector} from "react-redux";
 
 // Internal imports
 import "./Profile.css";
-import "./Reset";
 
 const Profile = ({
   stored, 
@@ -11,7 +10,6 @@ const Profile = ({
   startEditCallback
 }) => {
   const { user: currentUser } = useSelector((state) => state.auth);
-
 
   return (
     <div className="startprofile-container">
@@ -58,8 +56,6 @@ const Profile = ({
 
         <strong>Friends:</strong>
         <ul>{currentUser.other.Friends.map((role, index) => <li key={index}>{role}</li>)}</ul>
-
-        <a href="./Reset" className="profile-btn">Edit Settings</a>
     
       </div>
   
