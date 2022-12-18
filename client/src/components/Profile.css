@@ -1,0 +1,45 @@
+
+.startprofile-container {
+     position: relative;
+     z-index: 1;
+     background: #FFFFFF;
+     max-width: 500px;
+     max-height: fit-content;
+     margin: 0 auto 100px auto;
+ }
+
+.profilepic-container{
+     text-align: center;
+ }
+
+.profilepic {
+     border-radius: 50%; 
+     margin: 0; 
+     margin: 20px 0;
+}
+
+.profile-btn {
+     text-align: center;
+     text-transform: uppercase;
+     background: #b2b2b2;
+     outline: 0;
+     border: 0;
+     padding: 15px;
+     color: #FFFFFF;
+     font-size: 14px;
+     cursor: pointer;
+     width: 100%;
+ }
+
+ .profile-btn:hover,.profile-btn:active,.profile-btn:focus {
+     background: #9c9d9c;
+ /* #8ca0ca */
+ }
+
+ .profile-canedit-content, .profile-user-content{
+     padding: 25px;
+ }
+
+ .profile-user-content {
+     background-color: #d0cdcd;
+ }

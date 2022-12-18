@@ -1,0 +1,48 @@
+body {
+    margin: 0 0;
+    padding: 0 0;
+    width: auto;
+    background-color: aliceblue;
+}
+
+.landing-page header {
+    margin: 0 0; 
+    padding: 100px 0; 
+    text-align: center;
+    background-image: url("./img/backgroundpic.jpeg");
+    image-rendering:optimizeQuality;
+    background-size: cover;    
+}
+
+.landing-page h3 {
+    font-size: 50px;
+    font-weight: 700;
+    color:rgb(26, 120, 202);
+    padding: 20px; 
+}
+.purpose {
+    text-align: center; 
+    font-size: 21px;
+    font-weight: 10;
+    color:#1b356a;
+    background-color: white;
+}
+
+.img-container  {
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.homeImg{
+    width: auto;
+    height: 300px;
+    background-color: #1b356a;
+    align-items: center;
+}
+
+
+
+
+
+
+
