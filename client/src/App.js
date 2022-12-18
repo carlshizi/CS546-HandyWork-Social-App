@@ -26,6 +26,7 @@ import Reset from "./components/Reset";
 import Forgot from "./components/Forgot"
 import Success from "./components/resetSuccess"
 import User from "./components/User"
+import Search from "./components/partials/Search"
 
 
 import { logout } from "./actions/auth";
@@ -181,9 +182,12 @@ useEffect(() => {
           <Route path="/reset" element={<Reset />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/searchbar" element={<Search/>
+
+} />
         </Routes>
       </div>
-      <Button onClick={() => getAllPosts()} >Click me for all HandyMen</Button>
+      {/* <Button onClick={() => getAllPosts()} >Click me for all HandyMen</Button> */}
     </div>
   );
 };

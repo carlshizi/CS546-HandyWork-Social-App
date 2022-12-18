@@ -44,14 +44,17 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
 
 
 
-export default function MediaCard() {
+
+export default function MediaCard({ person }) {
+  // console.log(person)
+
   return (
     <Card sx={{ maxWidth: 200, maxHeight: 53 }}>
       <CardContent>   
       <Stack direction="row" spacing={2}>
       <Stack direction="row" spacing={2}>
-      <Avatar alt="Remy Sharp" src={ profilePic } style={{top:"-11px"}} />
-      <div style={{marginTop:"-3px"}}><h3 style={{fontSize:"20px"}}>Sam Smith</h3></div>
+      <Avatar alt="Remy Sharp" src={ person.currentUser.other.image } style={{top:"-11px"}} />
+      <div style={{marginTop:"-3px"}}><h3 style={{fontSize:"20px"}}>{ person.currentUser.other.username }</h3></div>
     </Stack>
     </Stack>
       </CardContent>      
