@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mui/icons-material": "^5.11.0",
+    "@mui/lab": "^5.0.0-alpha.112",
+    "@mui/material": "^5.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -11,6 +14,7 @@
     "jquery": "^3.6.1",
     "popper.js": "^1.16.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-redux": "^8.0.1",
@@ -19,6 +23,7 @@
     "react-validation": "^3.0.7",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
+    "sfcookies": "^1.0.2",
     "validator": "^13.7.0"
   },
   "scripts": {

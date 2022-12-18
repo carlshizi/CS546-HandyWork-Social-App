@@ -49,10 +49,10 @@ const main = async () => {
 
     const seedUsers = [
         // Generate 23 Account Profiles
-        { username: 'Denzel', email: 'dwashington@yahoo.com', password: await hash('VCemuX'), Friends: ["estrong@gmail.com", "mallen@yahoo.com", "ssmith@aol.com", "knod@hotmail.com", "dhuerta@hotmail.com"] }, // 'Denzel Washington'
-        { username: 'Sammy', email: 'ssmith@aol.com', password: await hash('tvjXe3'), Friends: ["jhodges@msn.com", "cboyd@yahoo.com", "dmedina@aol.com", "kcooke@gmail.com", "dwashington@yahoo.com", "jhodges@msn.com"] }, // 'Sam Smith'
-        { username: 'Kim', email: 'knod@hotmail.com', password: await hash('WwsN3H'), Friends: ["phampton@google.com", "kkidd@hotmail.com", "arush@gmail.com", "dwashington@yahoo.com", "cboyd@yahoo.com"] }, // "Kim Nod"
-        { username: 'Mallen', email: 'mallen@yahoo.com', password: await hash('mmmEx4'), Friends: ["amaynarf@aol.com", "cboyd@yahoo.com", "dwashington@yahoo.com"] }, // "Mariyah Allen"
+        { username: 'denzel', email: 'dwashington@yahoo.com', password: await hash('VCemuX'), Friends: ["estrong@gmail.com", "mallen@yahoo.com", "ssmith@aol.com", "knod@hotmail.com", "dhuerta@hotmail.com"] }, // 'Denzel Washington'
+        { username: 'sammy', email: 'ssmith@aol.com', password: await hash('tvjXe3'), Friends: ["jhodges@msn.com", "cboyd@yahoo.com", "dmedina@aol.com", "kcooke@gmail.com", "dwashington@yahoo.com", "jhodges@msn.com"] }, // 'Sam Smith'
+        { username: 'kim', email: 'knod@hotmail.com', password: await hash('WwsN3H'), Friends: ["phampton@google.com", "kkidd@hotmail.com", "arush@gmail.com", "dwashington@yahoo.com", "cboyd@yahoo.com"] }, // "Kim Nod"
+        { username: 'mallen', email: 'mallen@yahoo.com', password: await hash('mmmEx4'), Friends: ["amaynarf@aol.com", "cboyd@yahoo.com", "dwashington@yahoo.com"] }, // "Mariyah Allen"
         { username: 'cboyd', email: 'cboyd@yahoo.com', password: await hash('GhmVH8'), Friends: ["knod@hotmail.com", "mallen@yahoo.com", "acervantes@google.com", "ssmith@aol.com"] }, // "Cesar Boyd"
         { username: 'david02', email: 'dmedina@aol.com', password: await hash('4KwwL8'), Friends: ["ssmith@aol.com", "jcastro@yahoo.com", "acervantes@google.com", "kkidd@hotmail.com", "kcooke@gmail.com"] }, // "Davian Medina"
         { username: 'kadin', email: 'kcooke@gmail.com', password: await hash('UFgPZX'), Friends: ["ssmith@aol.com", "dmedina@aol.com", "ashea@aol.com", "kpugh@yahoo.com"] }, // "Kadin Cooke"

@@ -11,6 +11,32 @@ const JWTSEC = "#2@!@$ndja45883 r7##";
 const ResetToken = require("../models/ResetToken");
 const crypto = require("crypto");
 
+// handle photo
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function(req, file, callback){
+        callback(null, './uploads/');
+    },
+    filename: function(req, file, callback) {
+        callback(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
+    }
+});
+const fileFilter = (req, file, cb) => {
+    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+        cb(null, true);
+    } else{
+        cb(new Error('Only JPEG or PNG files allowed'), false);
+    }
+}
+const upload = multer({
+    storage,
+    limit: {
+        fileSize: 1024 * 1024 * 5
+    },
+    fileFilter
+});
+
+
 
 router.post("/create/user",
     body('username')
@@ -54,7 +80,9 @@ router.post("/create/user",
         verificationToken.save();
         await user.save();
 
-        res.status(200).json({ Status: "Successful", msg: "Account created", user: user._id })
+        // res.status(200).json({ Status: "Successful", msg: "Account created", user: user._id })
+        return res.status(200).json("Account successfully created")
+
     })
 
 
@@ -96,7 +124,7 @@ router.post("/forgot/password", async (req, res) => {
     const { email } = req.body;
     const user = await User.findOne({ email: email });
     if (!user) {
-        return res.status(400).json("User not found");
+        return res.status(400).json("Email not found");
     }
     const token = await ResetToken.findOne({ user: user._id });
     if (token) {
@@ -110,8 +138,8 @@ router.post("/forgot/password", async (req, res) => {
     });
     await resetToken.save();
 
-    return res.status(200).json(`http://localhost:3000/reset/password?token=${randomText}&_id=${user._id}`)
-    // return res.status(200).json(`http://localhost:5000/api/user/reset/password?token=${randomText}&_id=${user._id}`)
+    // return res.status(200).json(`http://localhost:3000/reset/password?token=${randomText}&_id=${user._id}`)
+    return res.status(200).json({ accessToken: resetToken, token: randomText });
 })
 
 
@@ -119,20 +147,20 @@ router.post("/forgot/password", async (req, res) => {
 router.put("/reset/password", async (req, res) => {
     const { token, _id } = req.query;
     if (!token || !_id) {
-        return res.status(400).json("Invalid req");
+        return res.status(401).json("Invalid req");
     }
     const user = await User.findOne({ _id: _id });
     if (!user) {
-        return res.status(400).json("user not found")
+        return res.status(402).json("user not found")
     }
     const resetToken = await ResetToken.findOne({ user: user._id });
     if (!resetToken) {
-        return res.status(400).json("Reset token is not found")
+        return res.status(403).json("Reset token is not found")
     }
 
     const isMatch = await bcrypt.compareSync(token, resetToken.token);
     if (!isMatch) {
-        return res.status(400).json("Token is not valid");
+        return res.status(404).json("Token is not valid");
     }
 
     const { password } = req.body;
@@ -221,23 +249,50 @@ router.get("/following/:id", verifyToken, async (req, res) => {
 })
 
 
+// // Update User Profile
+// router.put("/update/:id", verifyToken, async (req, res) => {
+//     try {
+//         if (req.params.id === req.user.id) {
+//             if (req.body.password) {
+//                 const salt = await bcrypt.genSalt(10);
+//                 const hash = await bcrypt.hash(req.body.password, salt);
+//                 req.body.password = hash;
+//                 const updateuser = await User.findByIdAndUpdate(req.params.id, {
+//                     $set: req.body
+//                 });
+//                 await updateuser.save();
+//                 res.status(200).json(updateuser);
+//             }
+//         } else {
+//             return res.status(400).json("Forbidden Access")
+//         }
+//     } catch (error) {
+//         return res.status(500).json("Internal server error")
+//     }
+// })
+
 // Update User Profile
-router.put("/update/:id", verifyToken, async (req, res) => {
+router.put("/update/:id", verifyToken, upload.single('image'), async (req, res) => {
+    console.log(req.file)
     try {
-        if (req.params.id === req.user.id) {
-            if (req.body.password) {
-                const salt = await bcrypt.genSalt(10);
-                const hash = await bcrypt.hash(req.body.password, salt);
-                req.body.password = hash;
-                const updateuser = await User.findByIdAndUpdate(req.params.id, {
-                    $set: req.body
-                });
-                await updateuser.save();
-                res.status(200).json(updateuser);
+        // if (req.params.id === req.user.id) {
+            // if (req.body.password) {
+            //     const salt = await bcrypt.genSalt(10);
+            //     const hash = await bcrypt.hash(req.body.password, salt);
+            //     req.body.password = hash;
+            // }
+
+            if(req.file){
+                req.body.image = `http://localhost:5000/${req.file.path}`;
             }
-        } else {
-            return res.status(400).json("Forbidden Access")
-        }
+        const updateuser = await User.findByIdAndUpdate(req.params.id, {
+            $set: req.body
+        });
+
+        await updateuser.save();
+        res.status(200).json(updateuser);
+        // }
+        
     } catch (error) {
         return res.status(500).json("Internal server error")
     }
@@ -319,6 +374,25 @@ router.get("/fof/user/:id", async (req, res) => {         // verifyToken
         }
 
         res.status(200).json(fof_list)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
+// Get user by ID
+router.get("/:username", async (req, res) => {
+    const allUser = await User.find();
+    if (allUser.length === 0) {
+        return res.status(400).json("Server has no users")
+    }
+
+    try {
+        const user = await User.findOne({ username: req.params.username.toLowerCase() });
+        if (!user) {
+            return res.status(400).json("Invalid user")
+        }
+
+        return res.status(200).json(user)
     } catch (error) {
         res.status(400).json(error)
     }

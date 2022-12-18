@@ -1,9 +1,12 @@
 import React from "react";
 import { Navigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import { delete_cookie } from 'sfcookies'
 
 const Account = () => {
-
+  const cookie_key = "navigate"   // clear cookie for navigating to reset page
+  delete_cookie(cookie_key)
+  
   const { user: currentUser } = useSelector((state) => state.auth);
 
   if (!currentUser) {

@@ -1,6 +1,7 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
+import { Button } from 'react-bootstrap';
 import logo from './components/img/Handywork2ii.png'
 
 
@@ -21,15 +22,44 @@ import Home from "./components/Home";
 import Profile from "./components/ProfileAPI";
 import EditProfile from "./components/EditProfile";
 import Account from "./components/Account";
-import User from "./components/User";
+import WorkPosts from "./components/WorkPosts";
+import HandyManPage from "./components/HandyManPage";
+import Reset from "./components/Reset";
+import Forgot from "./components/Forgot"
+import Success from "./components/resetSuccess"
+import User from "./components/User"
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 import EventBus from "./common/EventBus";
+import axios from "axios";
+
 
 
 const App = () => {
+  const [handyMen, setHandyMen] = useState([]);
+  const navigate = useNavigate();
+  const API_URL = "http://localhost:5000/api/post/";
+
+const getAllPosts = async () => {
+  axios
+  .get(API_URL + "getAll")
+  .then(response => {
+    let posts = response.data.posts;
+    setHandyMen(posts);
+  })
+  .catch(error => {console.log(error)});
+};
+
+useEffect(() => {
+  if(handyMen.length > 0){
+    console.log(handyMen);
+    navigate("/search", {state: {handyMen : handyMen}});
+  }
+}, [handyMen]);
+
+  // let login = useLocation();
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -56,6 +86,7 @@ const App = () => {
     };
   }, [currentUser, logOut]);
 
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -75,8 +106,8 @@ const App = () => {
 
           {currentUser && (
             <li className="nav-item">
-              <Link to={"/user"} className="nav-link">
-                User
+              <Link to={"/work"} className="nav-link">
+                Work
               </Link>
             </li>
           )}
@@ -139,6 +170,7 @@ const App = () => {
 
       <div className="container mt-3">
         <Routes>
+          <Route path="*" element={<LandingPage />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -146,9 +178,15 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/user" element={<User />} />
+          <Route path="/work" element={<WorkPosts />} />
+          <Route path="/search" element={<HandyManPage />} />
+          <Route path="/user/:username" element={<User />} />
+          <Route path="/reset" element={<Reset />} />
+          <Route path="/forgot" element={<Forgot />} />
+          <Route path="/success" element={<Success />} />
         </Routes>
       </div>
+      <Button onClick={() => getAllPosts()} >Click me for all HandyMen</Button>
     </div>
   );
 };

@@ -19,7 +19,6 @@ const Profile = ({
   return (
     <div className="startprofile-container">
 
-
      <div className="profile-canedit-content">
       <div className="profilepic-container">
         <img class="profilepic" src={genericprofilepic} width="170" height="170" alt= "Profile Pic"/>
