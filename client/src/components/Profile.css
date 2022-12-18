@@ -43,3 +43,7 @@
  .profile-user-content {
      background-color: #d0cdcd;
  }
+
+ .profile-user-content a{
+    text-decoration: none;
+ }

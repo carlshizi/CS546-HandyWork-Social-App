@@ -1,34 +1,55 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditProfile from './EditProfile';
 import UserProfile from './Profile';
 import {Navigate} from 'react-router-dom';
 import {useSelector} from "react-redux";
+import axios from "axios";
+import { delete_cookie } from 'sfcookies';
+import genericprofilepic from "./img/profilepic.jpg";
 
 function ProfileAPI() {
-    const [editMode, setEditMode] = useState(false);
-    const [name, setName] = useState("FirstName LastName");
-    const [handyman, setHandyman] = useState("No");
-    const [skills, setSkills] = useState("None");
-    const [bio, setBio] = useState("None");
-    const [experience, setExperience] = useState("None");
-  
-    const stored = {name, handyman, skills, bio, experience};
-
     const { user: currentUser } = useSelector((state) => state.auth);
+    const [editMode, setEditMode] = useState(false);
+    const [stored, setProfile] = useState({}); 
+    const [image, setImage] = useState("");
+
+
+    const API_URL = "http://localhost:5000/api/user/";
+
+    useEffect(() => {
+        const getUserProfile = async () => {
+        const resProfile = await axios
+            .get((API_URL + `${currentUser.other.username}`))
+            .catch((error) => console.log('Error: ', error));
+        if (resProfile.data.profile ) {
+            setProfile(resProfile.data.profile);
+        } else {
+            const initial = { name: "firstname lastname", 
+            handyman: "No", 
+            skills:"List out some skills you have", 
+            bio:"Tell us about yourself"};
+            setProfile(initial);
+        }
+        if (resProfile.data.image) {
+            setImage(resProfile.data.image);
+        } else {
+            setImage(genericprofilepic);
+        }
+        };
+        getUserProfile();
+    }, []);   
+
+
+
     if (!currentUser) {
         return <Navigate to="/login" />;
-      }
+    }
+    const cookie_key = "navigate";   // clear cookie for navigating to reset page
+   delete_cookie(cookie_key);
+
 
     function handleEditComplete(result) {
-        console.log("handleEditComplete", result);
-        if (result != null) {
-            alert("you hace successfully changed your profile");
-            setName(result.name);
-            setHandyman(result.handyman);
-            setSkills(result.skills);
-            setBio(result.bio);
-            setExperience(result.experience);
-        }        
+        setProfile(result);  
         setEditMode(false);
     }
 
@@ -39,7 +60,8 @@ function ProfileAPI() {
                     <div className='outerbox m10'>
                     <h1>Edit Profile</h1>
                     <EditProfile
-                        stored={stored}
+                        stored = {stored}
+                        image = {image}
                         editCompleteCallback={handleEditComplete}    />                       
                     </div>
                 )
@@ -50,6 +72,7 @@ function ProfileAPI() {
                     }
                         <UserProfile
                             stored={stored}
+                            image = {image}
                             startEditCallback={() => setEditMode(true)}/>
                     </div>
                 )

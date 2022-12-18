@@ -1,27 +1,25 @@
 import {React} from "react";
-import {Navigate} from 'react-router-dom';
 import {useSelector} from "react-redux";
-
 
 // Internal imports
 import "./Profile.css";
-import genericprofilepic from "./img/profilepic.jpg";
+import "./Reset";
 
 const Profile = ({
   stored, 
+  image,
   startEditCallback
 }) => {
   const { user: currentUser } = useSelector((state) => state.auth);
-  if (!currentUser) {
-      return <Navigate to="/login" />;
-    }
+
 
   return (
     <div className="startprofile-container">
 
      <div className="profile-canedit-content">
       <div className="profilepic-container">
-        <img class="profilepic" src={genericprofilepic} width="170" height="170" alt= "Profile Pic"/>
+        <img class="profilepic" src={image} 
+        width="170" height="170" alt= "Profile Pic"/>
       </div>
 
       <p>
@@ -37,11 +35,9 @@ const Profile = ({
       </p>
 
       <p>
-        <strong>Bio:</strong> {stored.bio}
-      </p>
-
-      <p>
-        <strong>Experiences:</strong> {stored.experience}
+        <strong>Bio:</strong>
+        <br/>
+        {stored.bio}
       </p>
 
       <p>
@@ -63,6 +59,8 @@ const Profile = ({
         <strong>Friends:</strong>
         <ul>{currentUser.other.Friends.map((role, index) => <li key={index}>{role}</li>)}</ul>
 
+        <a href="./Reset" class="profile-btn">Edit Settings</a>
+    
       </div>
   
     </div>
