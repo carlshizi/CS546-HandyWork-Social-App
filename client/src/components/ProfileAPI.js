@@ -13,16 +13,16 @@ function ProfileAPI() {
     const [stored, setProfile] = useState({}); 
     const [image, setImage] = useState("");
 
-
-    const API_URL = "http://localhost:5000/api/user/";
+    const API_URL = "http://localhost:5000/api/post/";
 
     useEffect(() => {
         const getUserProfile = async () => {
+
         const resProfile = await axios
-            .get((API_URL + `${currentUser.other.username}`))
+            .get((API_URL + `get/${currentUser.other._id}`))
             .catch((error) => console.log('Error: ', error));
-        if (resProfile.data.profile ) {
-            setProfile(resProfile.data.profile);
+        if (resProfile.data.user.profile ) {
+            setProfile(resProfile.data.user.profile);
         } else {
             const initial = { name: "firstname lastname", 
             handyman: "No", 
@@ -30,8 +30,8 @@ function ProfileAPI() {
             bio:"Tell us about yourself"};
             setProfile(initial);
         }
-        if (resProfile.data.image) {
-            setImage(resProfile.data.image);
+        if (resProfile.data.user.image) {
+            setImage(resProfile.data.user.image);
         } else {
             setImage(genericprofilepic);
         }
