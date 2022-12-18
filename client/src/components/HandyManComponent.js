@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Collapse } from 'react-bootstrap';
 
-export default function HandyManComponent({ handyMan }) {
+export default function HandyManComponent({ handyMan, canDelete, removePost }) {
 
     const [open, setOpen] = useState(false);
 
@@ -32,6 +32,13 @@ export default function HandyManComponent({ handyMan }) {
                         {`Description: ${handyMan.postMessage}`}
                     </div>
                 </Collapse>
+                {canDelete ?
+                    <Button className='mt-4'
+                        onClick={() => removePost(handyMan)} 
+                        variant="danger" 
+                    >Click to Delete</Button> : 
+                    <span></span>
+                }
             </Card.Body>
         </Card>
     )
