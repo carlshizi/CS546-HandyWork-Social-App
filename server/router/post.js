@@ -27,12 +27,12 @@ const isLength = (str, min, max) => {
 
 router.post("/create/post",
     async (req, res) => {
-        if(!isLength(req.body.location, 3, 30) || (!req.body.location)){
-            return res.status(400).json("Invalid request. Please try again")
+        if(!isLength(req.body.location, 3, 30) || (!req.body.location) || (!onlyLettersSpaces(req.body.location))){
+            return res.status(400).json("Invalid request. Please try again. Location can only use letters, must not be empty (or just whitespaces), and must be 3-30 characters.")
         }
 
-        if(!isLength(req.body.message, 6, 100) || (!req.body.message)){
-            return res.status(400).json("Invalid request. Please try again")
+        if(!isLength(req.body.message, 6, 50) || (!req.body.message)){
+            return res.status(400).json("Invalid request. Please try again. Description must be 6-50 characters and must not be empty (or just whitespaces).")
         }
 
         let msg = await Post.findOne({ postMessage: req.body.message });
