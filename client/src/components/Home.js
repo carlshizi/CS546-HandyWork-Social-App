@@ -9,8 +9,8 @@ import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import SimpleBottomNavigation from './partials/bottom'
-import RowAndColumnSpacing from './partials/grid2'
+import SimpleBottomNavigation from './partials/bottom';
+import RowAndColumnSpacing from './partials/grid2';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
