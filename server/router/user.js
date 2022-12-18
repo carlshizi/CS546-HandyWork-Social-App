@@ -398,5 +398,14 @@ router.get("/:username", async (req, res) => {
     }
 })
 
+// Get All Users
+router.get("/all/users", async (req, res) => {
+    const allUser = await User.find();
+    if (allUser.length === 0) {
+        return res.status(400).json("Server has no users")
+    }
+    res.status(200).json(allUser)
+})
+
 
 module.exports = router;

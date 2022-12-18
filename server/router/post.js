@@ -10,23 +10,30 @@ const VerificationToken = require("../models/VerificationToken");
 const JWTSEC = "#2@!@$ndja45883 r7##";
 const ResetToken = require("../models/ResetToken");
 const crypto = require("crypto");
+const { Types } = require('mongoose');
 
+const onlyLettersSpaces = (str) => {
+    return /^[A-Za-z\s]*$/.test(str);
+  }
+
+const isLength = (str, min, max) => {
+    if(str.length < min || str.length > max){
+        return false
+    }
+    else{
+        return true
+    }
+}
 
 router.post("/create/post",
-    body('username'),
-    body('location')
-        .isLength({ min: 3, max: 30 })
-        .isEmpty()
-        .isAlpha(),
-    body('message')
-        .isLength({ min: 6, max: 100 })
-        .isEmpty(),
     async (req, res) => {
-        const error = validationResult(req);
-        if (!error.isEmpty()) {
-            return res.status(400).json(error)
+        if(!isLength(req.body.location, 3, 30) || (!req.body.location) || (!onlyLettersSpaces(req.body.location))){
+            return res.status(400).json("Invalid request. Please try again. Location can only use letters, must not be empty (or just whitespaces), and must be 3-30 characters.")
         }
-        //   try {
+
+        if(!isLength(req.body.message, 6, 50) || (!req.body.message)){
+            return res.status(400).json("Invalid request. Please try again. Description must be 6-50 characters and must not be empty (or just whitespaces).")
+        }
 
         let msg = await Post.findOne({ postMessage: req.body.message });
         if (msg) {
@@ -84,6 +91,47 @@ router.get("/getAll",
 
         res.status(200).json({ posts: posts });
     })
+
+router.get("/get/:id",
+async (req, res) => {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json(error)
+    }
+    try {
+        let user = await User.findOne({ _id: Types.ObjectId(req.params.id) });
+        if(!user){
+            return res.status(400).json("User does not exist!")
+        }
+        return res.status(200).json( {user: user} )
+    } catch (error) {
+        res.status(500).json("An error occurred during retrieval of posts")        
+    }
+})
+
+router.put("/remove/:id",
+async (req, res) => {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json(error)
+    }
+    //   try {
+
+    let user = await User.findOne({ _id: req.params.id });
+    if(!user){
+        return res.status(400).json("User does not exist!")
+    }
+
+    try {
+        let updatedUser = await User.updateOne({_id : Types.ObjectId(req.params.id)}, {'$pull': {'workPosts' : { '_id': Types.ObjectId(req.body.post._id)}}})
+        let updatedPosts = await Post.deleteOne({_id: Types.ObjectId(req.body.post._id)})
+        let updatedUserResponse = await User.findOne({ _id: req.params.id });       
+        res.status(200).json({ updatedUser: updatedUserResponse });
+    } catch (error) {
+        res.status(500).json("An error occurred during deletion of post")        
+    }
+
+})
 
 
 module.exports = router;

@@ -3,10 +3,14 @@ import { Form, Button } from 'react-bootstrap';
 import { useSelector } from "react-redux";
 import { Navigate } from 'react-router-dom';
 import { createPost } from "../services/postService";
-import { isAlpha, isEmpty, isLength } from "validator";
+import { isEmpty, isLength } from "validator";
 import axios from "axios";
 
 const API_URL = "http://localhost:5000/api/post/";
+
+const onlyLettersSpaces = (str) => {
+  return /^[A-Za-z\s]*$/.test(str);
+}
 
 const WorkPosts = () => {
   const [location, setLocation] = useState("");
@@ -24,7 +28,7 @@ const WorkPosts = () => {
   };
 
   const isLocationValid = (input) => {
-    if (!isAlpha(input) || isEmpty(input) || !isLength(input , { min: 3, max: 30 }) ){
+    if (!onlyLettersSpaces(input) || isEmpty(input) || !isLength(input , { min: 3, max: 30 }) ){
       return false;
     }
     else{
@@ -79,12 +83,16 @@ const WorkPosts = () => {
               console.log(response);
           }
 
-    setLocation("");
-    setDescription("");
-
     if(response){
       alert("Thank you! Your handy work request was successfully submitted!");
     }
+    else{
+      alert("An error occurred during submission. Please try again later");
+    }
+    
+    setLocation("");
+    setDescription("");
+
   };
 
   if (!currentUser) {

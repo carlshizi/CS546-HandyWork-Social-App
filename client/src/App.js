@@ -28,6 +28,7 @@ import Reset from "./components/Reset";
 import Forgot from "./components/Forgot"
 import Success from "./components/resetSuccess"
 import User from "./components/User"
+import Search from "./components/partials/Search"
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -47,6 +48,9 @@ const getAllPosts = async () => {
   .get(API_URL + "getAll")
   .then(response => {
     let posts = response.data.posts;
+    if(posts.length == 0){
+      alert("There are currently no Handy Man work listings")
+    }
     setHandyMen(posts);
   })
   .catch(error => {console.log(error)});
@@ -108,6 +112,13 @@ useEffect(() => {
             <li className="nav-item">
               <Link to={"/work"} className="nav-link">
                 Work
+              </Link>
+            </li>
+          )}
+          {currentUser && (
+            <li className="nav-item">
+              <Link to={"/account"} className="nav-link">
+                Account
               </Link>
             </li>
           )}
@@ -184,9 +195,12 @@ useEffect(() => {
           <Route path="/reset" element={<Reset />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/searchbar" element={<Search/>
+
+} />
         </Routes>
       </div>
-      <Button onClick={() => getAllPosts()} >Click me for all HandyMen</Button>
+      {/* <Button onClick={() => getAllPosts()} >Click me for all HandyMen</Button> */}
     </div>
   );
 };

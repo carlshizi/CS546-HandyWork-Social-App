@@ -7,7 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import CustomizedInputBase from './searchBar';
 import IconButton from '@mui/material/IconButton';
-import WovenImageList from "./wovenImage"
+import WovenImageList from "./wovenImage";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -25,7 +25,7 @@ export default function RowAndColumnSpacing() {
 
 
           {/* <br></br> */}
-          <h3>HandyMen List</h3>
+          <h3>Current Posts</h3>
         </Grid>
         <Grid item xs={6}>
           <h3>Suggested Users</h3>
