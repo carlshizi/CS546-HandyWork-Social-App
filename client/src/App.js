@@ -98,22 +98,22 @@ function ResponsiveAppBar() {
   }, [currentUser, logOut]);
 
   const currentUserMenu = () => {
-    if(currentUser){
+    if (currentUser) {
       return <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-      {pages.map((page) => (
-        <Button
-          key={page.key}
-          onClick={handleCloseNavMenu}
-          sx={{ my: 2, color: 'white', display: 'block' }}
-          href={page.href}
-        >
-          {page.key}
-        </Button>
-      ))}
-    </Box>
+        {pages.map((page) => (
+          <Button
+            key={page.key}
+            onClick={handleCloseNavMenu}
+            sx={{ my: 2, color: 'white', display: 'block' }}
+            href={page.href}
+          >
+            {page.key}
+          </Button>
+        ))}
+      </Box>
     }
   }
-  
+
   const pages = [{ key: 'Home', href: "/home" }, { key: 'Search', href: "/searchbar" }];
 
 
@@ -140,7 +140,7 @@ function ResponsiveAppBar() {
               HANDYWORK
             </Typography>
 
-            
+
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
@@ -176,43 +176,11 @@ function ResponsiveAppBar() {
                   </MenuItem>
                 ))}
               </Menu>
-              
+
             </Box>
 
-            {/* <HandymanIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography> */}
 
-            {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page.key}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                  href={page.href}
-                >
-                  {page.key}
-                </Button>
-              ))}
-            </Box> */}
-          
-          {currentUserMenu()}
+            {currentUserMenu()}
 
             <Box sx={{ flexGrow: 0 }}>
               {/* <Tooltip title="Open settings">
@@ -224,22 +192,22 @@ function ResponsiveAppBar() {
 
 
               {currentUser ? (
-                
+
                 <div>
                   <Link to={"/profile"}>
                     {currentUser.username}
                   </Link>
 
-                  <a href="/login" onClick={logOut} style={{color: 'white', fontSize: '14px'}}>
+                  <a href="/login" onClick={logOut} style={{ color: 'white', fontSize: '14px' }}>
                     SIGN OUT
                   </a>
                 </div>
               ) : (
-                <div style={{position:"absolute", right:"0", top:"20px"}}>
-                  <Link to={"/login"} style={{color: 'white', fontSize: '14px'}}>
+                <div style={{ position: "absolute", right: "0", top: "20px" }}>
+                  <Link to={"/login"} style={{ color: 'white', fontSize: '14px' }}>
                     LOGIN
                   </Link>
-                  <Link to={"/register"} style={{color: 'white', fontSize: '14px', marginLeft:"20px"}}>
+                  <Link to={"/register"} style={{ color: 'white', fontSize: '14px', marginLeft: "20px" }}>
                     SIGN UP
                   </Link>
                 </div>
