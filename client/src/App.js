@@ -47,6 +47,9 @@ const getAllPosts = async () => {
   .get(API_URL + "getAll")
   .then(response => {
     let posts = response.data.posts;
+    if(posts.length == 0){
+      alert("There are currently no Handy Man work listings")
+    }
     setHandyMen(posts);
   })
   .catch(error => {console.log(error)});
