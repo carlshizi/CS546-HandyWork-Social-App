@@ -92,6 +92,26 @@ router.get("/getAll",
         res.status(200).json({ posts: posts });
     })
 
+router.get("/get/:id",
+async (req, res) => {
+    console.log(req);
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json(error)
+    }
+    
+    try {
+        let user = await User.findOne({ _id: Types.ObjectId(req.params.id) });
+        if(!user){
+            return res.status(400).json("User does not exist!")
+        }
+        return res.status(200).json( {user: user} )
+    } catch (error) {
+        res.status(500).json("An error occurred during retrieval of posts")        
+    }
+
+})
+
 router.put("/remove/:id",
 async (req, res) => {
     console.log(req);
