@@ -111,6 +111,13 @@ useEffect(() => {
               </Link>
             </li>
           )}
+          {currentUser && (
+            <li className="nav-item">
+              <Link to={"/account"} className="nav-link">
+                Account
+              </Link>
+            </li>
+          )}
         </div>
 
         {currentUser ? (
