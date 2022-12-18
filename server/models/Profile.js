@@ -16,12 +16,11 @@ const ProfileSchema = new mongoose.Schema({
     },
     skills: {
         type: String,
+        required: true
     },
     bio: {
-        type: String
-    },
-    experience: {
-        type: String
+        type: String,
+        required: true
     }
 });
 
