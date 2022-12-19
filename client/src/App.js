@@ -17,7 +17,6 @@ import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom"
 // import { Button } from 'react-bootstrap';
 import Stack from '@mui/material/Stack';
 import logo from './components/img/Handywork2ii.png'
-import ViewOthersProfile from './components/ViewOthersProfile';
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -30,6 +29,7 @@ import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
 import Profile from "./components/ProfileAPI";
 import EditProfile from "./components/EditProfile";
+import ViewOthersProfile from './components/ViewOthersProfile';
 import Account from "./components/Account";
 import WorkPosts from "./components/WorkPosts";
 import HandyManPage from "./components/HandyManPage";

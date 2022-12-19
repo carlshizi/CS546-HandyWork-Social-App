@@ -6,12 +6,16 @@ import { useSelector } from "react-redux";
 
 // Internal imports
 import "./Profile.css";
+import genericprofilepic from "./img/profilepic.jpg";
 
 const ViewOthersProfile = () => {
 
   const { user: currentUser } = useSelector((state) => state.auth);
   const [info, getInfo] = useState('');
   const { username } = useParams();
+  const [ hide, setHide] = useState(false);
+  const [ profile, setProfile] = useState({});
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     getUser();
@@ -27,26 +31,40 @@ const ViewOthersProfile = () => {
     
   }
 
-
+  const API_URL = `http://localhost:5000/api/user/${username}`; 
   const getUser = async () => {
 
-    await axios.get(`http://localhost:5000/api/user/${username}`)
-      .then((response) => {
-        const allUsers = response.data;
-        getInfo(allUsers);
-      })
-    // if(!info){
-    //   return <Navigate to="/profile" />;
-    // }
-    //   console.log(userInfo.data.username)
-
-  }
+    const responseUser = await axios
+    .get(API_URL)
+    .catch((error) => console.log('Error: ', error));
+    if (responseUser) {
+        console.log("ResponseUser: ", responseUser);
+        getInfo(responseUser.data);
+    }
+    if(responseUser.data.profile) {
+        setHide(false); 
+        setProfile(responseUser.data.profile);
+    } else {
+        setHide(true);
+        const initial = { 
+            name: "firstname lastname", 
+            handyman: "No", 
+            skills:"List out some skills you have", 
+            bio:"Tell us about yourself"
+        };
+        setProfile(initial);
+    }
+    if(responseUser.data.image) {
+        setImage(responseUser.data.image);
+    } else {
+        setImage(genericprofilepic);
+    }
 
   if (!currentUser) {
     return <Navigate to="/login" />;
   }
 
-
+  }
 // console.log(info._id)
 // console.log(currentUser.other._id)
 // genericprofilepic
@@ -61,31 +79,42 @@ const ViewOthersProfile = () => {
               width="170" height="170" alt="Profile Pic" />
               <button className="button9" style={{marginLeft:"50px", marginBottom:"10px"}} onClick={addFriend}>Add</button>
           </div>
-
+        
+        { hide ? (
+            <div>           
+            <p>
+                <strong>{info.username} has not set up their profile bio</strong> 
+            </p>
+          </div>
+        ): (
+        
+        <div>
           <p>
-            {/* <strong>Name:</strong> {clickedUser.profile.name} */}
+            <strong>Name:</strong> {profile.name} 
           </p>
 
           <p>
-            {/* <strong>Available Handyman?</strong> {clickedUser.profile.handyman} */}
+            <strong>Available Handyman?</strong> {profile.handyman} 
           </p>
 
           <p>
-            {/* <strong>Skills:</strong> {clickedUser.profile.skills} */}
+            <strong>Skills:</strong> {profile.skills} 
           </p>
 
           <p>
             <strong>Bio:</strong>
             <br />
-            {/* {clickedUser.profile.bio} */}
+                {profile.bio} 
           </p>
 
         </div>
-
+        )}
+        </div>
+        
         <div className="profile-user-content">
 
           <p>
-            {/* <strong>Username:</strong> {currentUser.other.username} */}
+            <strong>Username:</strong> {info.username} 
           </p>
 
           <strong>Friends (Following):</strong>
