@@ -211,7 +211,7 @@ router.put("/sendRequest/:id", async (req, res) => {         // verifyToken
 
 
 // Add-Follow Friend
-router.put("/follow/:id", verifyToken, async (req, res) => {
+router.put("/follow/:id", async (req, res) => {
     if (req.params.id !== req.body.user) {
         const user = await User.findById(req.params.id);
         const otheruser = await User.findById(req.body.user);

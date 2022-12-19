@@ -17,6 +17,7 @@ import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom"
 // import { Button } from 'react-bootstrap';
 import Stack from '@mui/material/Stack';
 import logo from './components/img/Handywork2ii.png'
+import ViewOthersProfile from './components/ViewOthersProfile';
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -232,7 +233,7 @@ function ResponsiveAppBar() {
           <Route path="/account" element={<Account />} />
           <Route path="/work" element={<WorkPosts />} />
           <Route path="/search" element={<HandyManPage />} />
-          <Route path="/user/:username" element={<User />} />
+          <Route path="/user/:username" element={<ViewOthersProfile />} />
           <Route path="/reset" element={<Reset />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/success" element={<Success />} />
