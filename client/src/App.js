@@ -120,7 +120,8 @@ function ResponsiveAppBar() {
     { key: 'Home', href: "/home" },
     { key: 'Profile', href: "/profile" },
     { key: 'Work', href: "/work" },
-    { key: 'Search', href: "/searchbar" }
+    { key: 'Search', href: "/searchbar" },
+    { key: 'Account', href: "/account" }
   ];
 
 
