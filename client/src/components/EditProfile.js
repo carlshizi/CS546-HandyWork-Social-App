@@ -28,9 +28,9 @@ const EditProfile = ({
     const isProperName = (str) => {
         str = str.trim();
         const regName = /^[a-zA-Z/s]+$/;
-        if (!str.match(regName))     
+        if (!str.match(regName) || str.length === 0)     
         return (
-            <div className="regError2" role="alert">Enter firstname lastname</div>
+            <div className="regError2" role="alert">Enter name</div>
           );
     }
 
@@ -62,7 +62,7 @@ const EditProfile = ({
 
         //additional validation
         const regName = /^[A-Za-z\s]*$/;
-        if (!name.match(regName)) {alert("Enter valid name (alphabet and spaces only)")};
+        if (!name.match(regName) || name.length === 0) {alert("Enter valid name (alphabet and spaces only)")};
         if (handyman !== "Yes" && handyman !== "No") {alert("Are you a available handyman? Check 'Yes' or 'No'!")}
         if (skills.trim().length === 0) {alert("Enter some skills")};
         if (bio.trim().length === 0) {alert("Provide a bio")};
