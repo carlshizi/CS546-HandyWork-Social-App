@@ -16,6 +16,7 @@ function ProfileAPI() {
     const API_URL = "http://localhost:5000/api/user/";
     const API_URL_POST_PROFILE = "http://localhost:5000/api/profile/edit/";
 
+    // create an initial profile when an user logs in
     const postInitial = async () => {
         
         const initial = { 
@@ -100,3 +101,4 @@ function ProfileAPI() {
 
 };
 export default ProfileAPI;
+

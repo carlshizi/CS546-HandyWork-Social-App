@@ -1,36 +1,49 @@
-import {React, useEffect, useState} from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios"
+import { Navigate } from 'react-router-dom'
 import { useParams } from 'react-router';
-import axios from "axios";
+import { useSelector } from "react-redux";
 
 // Internal imports
 import "./Profile.css";
 import genericprofilepic from "./img/profilepic.jpg";
 
-const ViewOthersProfile = (
-) => {
-  const [ otherUser, getOther] = useState('');
+const ViewOthersProfile = () => {
+
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const [info, getInfo] = useState('');
+  const { username } = useParams();
   const [ hide, setHide] = useState(false);
   const [ profile, setProfile] = useState({});
   const [image, setImage] = useState("");
-  let { username } = useParams();
-
-
-  username = username.toLowerCase();
-  const API_URL = `http://localhost:5000/api/user/${username}`; 
 
   useEffect(() => {
+    getUser();
+  }, []);
+  // http://localhost:5000/api/user/follow/639e39d27d7c4e8b0baa690b?user=639e39d27d7c4e8b0baa690a
 
-    const getUser = async () => {
-      const responseUser = await axios
-        .get(API_URL)
-        .catch((error) => console.log('Error: ', error));
+  const addFriend = async() =>{
+    try {
+      await axios.put(`http://localhost:5000/api/user/follow/${currentUser.other._id}`, {"user": info._id});
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
+
+  const API_URL = `http://localhost:5000/api/user/${username}`; 
+  const getUser = async () => {
+
+    const responseUser = await axios
+    .get(API_URL)
+    .catch((error) => console.log('Error: ', error));
     if (responseUser) {
         console.log("ResponseUser: ", responseUser);
-        getOther(responseUser.data);
+        getInfo(responseUser.data);
     }
     if(responseUser.data.profile) {
-       setHide(false); 
-       setProfile(responseUser.data.profile);
+        setHide(false); 
+        setProfile(responseUser.data.profile);
     } else {
         setHide(true);
         const initial = { 
@@ -47,64 +60,72 @@ const ViewOthersProfile = (
         setImage(genericprofilepic);
     }
 
-    };
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
 
-    getUser();
-  }, []); 
-
+  }
+// console.log(info._id)
+// console.log(currentUser.other._id)
+// genericprofilepic
 
   return (
-    <div className="startprofile-container">
+    info ?
+      (<div className="startprofile-container">
 
-     <div className="canhide-container">
-      <div className="profilepic-container">
-        <img className="profilepic" src={image} 
-        width="170" height="170" alt= "Profile Pic"/>
-      </div>
-    </div>
-
-    <div className="canhide-container">
+        <div className="profile-canedit-content">
+          <div className="profilepic-container">
+            <img className="profilepic" src={info.image}
+              width="170" height="170" alt="Profile Pic" />
+              <button className="button9" style={{marginLeft:"50px", marginBottom:"10px"}} onClick={addFriend}>Add</button>
+          </div>
+        
         { hide ? (
-            <div>
-                <p>
-                <strong id="hiddenProfile">{otherUser.username} has not set up their profile bio</strong> 
-                </p>
-            </div>
-        ) : (
+            <div>           
+            <p>
+                <strong>{info.username} has not set up their profile bio</strong> 
+            </p>
+          </div>
+        ): (
+        
         <div>
-        <p>
-        <strong>Name:</strong> {profile.name}
-        </p>
+          <p>
+            <strong>Name:</strong> {profile.name} 
+          </p>
 
-        <p>
-        <strong>Available Handyman?</strong> {profile.handyman} 
-        </p>
+          <p>
+            <strong>Available Handyman?</strong> {profile.handyman} 
+          </p>
 
-        <p>
-        <strong>Skills:</strong> {profile.skills}
-        </p>
+          <p>
+            <strong>Skills:</strong> {profile.skills} 
+          </p>
 
-        <p>
-        <strong>Bio:</strong>
-        <br/>
-        {profile.bio}
-        </p>
+          <p>
+            <strong>Bio:</strong>
+            <br />
+                {profile.bio} 
+          </p>
+
         </div>
         )}
-      </div> 
+        </div>
+        
+        <div className="profile-user-content">
 
+          <p>
+            <strong>Username:</strong> {info.username} 
+          </p>
 
-      <div className="profile-user-content">
+          <strong>Friends:</strong>
+          <ul>{info.Friends.map((role, index) => <li key={index}>{role}</li>)}</ul>
 
-        <p>
-          <strong>Username:</strong> {otherUser.username}
-        </p>
+        </div>
 
       </div>
-
-  
-    </div>
-  );
+      )
+      : (<h1 className="regError3">User does not exist</h1>)
+  )
 }
 
 export default ViewOthersProfile;
