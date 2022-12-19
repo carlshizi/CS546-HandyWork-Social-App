@@ -3,11 +3,8 @@ import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import SearchIcon from '@mui/icons-material/Search';
-import InputBase from '@mui/material/InputBase';
-import CustomizedInputBase from './searchBar';
-import IconButton from '@mui/material/IconButton';
 import WovenImageList from "./wovenImage";
+import TitlebarBelowImageList from './TitlebarBelowImageList';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -25,7 +22,8 @@ export default function RowAndColumnSpacing() {
 
 
           {/* <br></br> */}
-          <h3>Current Posts</h3>
+          <h3>Friends of Friends List</h3>
+          <TitlebarBelowImageList />
         </Grid>
         <Grid item xs={6}>
           <h3>Suggested Users</h3>

@@ -43,7 +43,7 @@ export default function TitlebarBelowMasonryImageList() {
     <Box sx={{ width: 400, height: 350, overflowY: 'scroll' }}>
       <ImageList variant="masonry" cols={3} gap={8}>
         {items.map((item) => (
-          <CardActionArea href="hotmail.com">
+          <CardActionArea href= {`http://localhost:3000/user/${item.author}`} >
 
             <ImageListItem key={item.id}>
               <img
