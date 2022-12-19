@@ -14,6 +14,27 @@ function ProfileAPI() {
     const [image, setImage] = useState("");
 
     const API_URL = "http://localhost:5000/api/user/";
+    const API_URL_POST_PROFILE = "http://localhost:5000/api/profile/edit/";
+
+    const postInitial = async () => {
+        
+        const initial = { 
+            username: currentUser.other.username,
+            name: "firstname lastname", 
+            handyman: "No", 
+            skills:"List out some skills you have", 
+            bio:"Tell us about yourself"
+        };
+
+        const initialProfile = await axios 
+            .post(API_URL_POST_PROFILE,  initial)
+            .catch((error) => console.log('Error: ', error));
+        
+        if(initialProfile) {
+            console.log("initial profile completed");
+        }
+        setProfile(initial);
+    }
 
     useEffect(() => {
     const getUserProfile = async () => {
@@ -24,11 +45,7 @@ function ProfileAPI() {
         if (resProfile.data.profile ) {
             setProfile(resProfile.data.profile);
         } else {
-            const initial = { name: "firstname lastname", 
-            handyman: "No", 
-            skills:"List out some skills you have", 
-            bio:"Tell us about yourself"};
-            setProfile(initial);
+            postInitial();
         }
         if (resProfile.data.image) {
             setImage(resProfile.data.image);

@@ -47,3 +47,7 @@
  .profile-user-content a{
     text-decoration: none;
  }
+
+ #hiddenProfile {
+    padding:25px; 
+ }

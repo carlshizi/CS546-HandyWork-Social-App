@@ -1,70 +1,107 @@
-import {React, useState, useEffect} from "react";
-import {useSelector} from "react-redux";
+import {React, useEffect, useState} from "react";
+import { useParams } from 'react-router';
 import axios from "axios";
 
 // Internal imports
 import "./Profile.css";
+import genericprofilepic from "./img/profilepic.jpg";
 
 const ViewOthersProfile = (
-    username
 ) => {
-  const { user: currentUser } = useSelector((state) => state.auth);
-  const [clickedUser, SetClickedUser] = useState({});
+  const [ otherUser, getOther] = useState('');
+  const [ hide, setHide] = useState(false);
+  const [ profile, setProfile] = useState({});
+  const [image, setImage] = useState("");
+  let { username } = useParams();
 
-  const API_URL = "http://localhost:5000/api/user/";
+
+  username = username.toLowerCase();
+  const API_URL = `http://localhost:5000/api/user/${username}`; 
+
   useEffect(() => {
 
     const getUser = async () => {
       const responseUser = await axios
-        .get(API_URL + username.toLowerCase())
+        .get(API_URL)
         .catch((error) => console.log('Error: ', error));
-      if (responseUser.data) {
-          console.log("ResponseUser: ", responseUser);
-          SetClickedUser(responseUser.data);
-      } 
+    if (responseUser) {
+        console.log("ResponseUser: ", responseUser);
+        getOther(responseUser.data);
+    }
+    if(responseUser.data.profile) {
+       setHide(false); 
+       setProfile(responseUser.data.profile);
+    } else {
+        setHide(true);
+        const initial = { 
+            name: "firstname lastname", 
+            handyman: "No", 
+            skills:"List out some skills you have", 
+            bio:"Tell us about yourself"
+        };
+        setProfile(initial);
+    }
+    if(responseUser.data.image) {
+        setImage(responseUser.data.image);
+    } else {
+        setImage(genericprofilepic);
+    }
+
     };
+
     getUser();
-  }, []);
+  }, []); 
+
 
   return (
     <div className="startprofile-container">
 
-     <div className="profile-canedit-content">
+     <div className="canhide-container">
       <div className="profilepic-container">
-        <img className="profilepic" src={clickedUser.image} 
+        <img className="profilepic" src={image} 
         width="170" height="170" alt= "Profile Pic"/>
       </div>
+    </div>
 
-      <p>
-        <strong>Name:</strong> {clickedUser.profile.name}
-      </p>
+    <div className="canhide-container">
+        { hide ? (
+            <div>
+                <p>
+                <strong id="hiddenProfile">{otherUser.username} has not set up their profile bio</strong> 
+                </p>
+            </div>
+        ) : (
+        <div>
+        <p>
+        <strong>Name:</strong> {profile.name}
+        </p>
 
-      <p>
-        <strong>Available Handyman?</strong> {clickedUser.profile.handyman} 
-      </p>
+        <p>
+        <strong>Available Handyman?</strong> {profile.handyman} 
+        </p>
 
-      <p>
-        <strong>Skills:</strong> {clickedUser.profile.skills}
-      </p>
+        <p>
+        <strong>Skills:</strong> {profile.skills}
+        </p>
 
-      <p>
+        <p>
         <strong>Bio:</strong>
         <br/>
-        {clickedUser.profile.bio}
-      </p>
-
+        {profile.bio}
+        </p>
+        </div>
+        )}
       </div> 
+
 
       <div className="profile-user-content">
 
         <p>
-          <strong>Username:</strong> {currentUser.other.username}
+          <strong>Username:</strong> {otherUser.username}
         </p>
 
-        <strong>Friends:</strong>
-        <ul>{currentUser.other.Friends.map((role, index) => <li key={index}>{role}</li>)}</ul>
-    
       </div>
+
   
     </div>
   );

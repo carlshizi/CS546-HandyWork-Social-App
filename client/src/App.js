@@ -29,6 +29,7 @@ import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
 import Profile from "./components/ProfileAPI";
 import EditProfile from "./components/EditProfile";
+import ViewOthersProfile from './components/ViewOthersProfile';
 import Account from "./components/Account";
 import WorkPosts from "./components/WorkPosts";
 import HandyManPage from "./components/HandyManPage";
@@ -229,6 +230,7 @@ function ResponsiveAppBar() {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/editprofile" element={<EditProfile />} />
+          <Route path="/viewothers/:username" element={<ViewOthersProfile />} />
           <Route path="/account" element={<Account />} />
           <Route path="/work" element={<WorkPosts />} />
           <Route path="/search" element={<HandyManPage />} />
