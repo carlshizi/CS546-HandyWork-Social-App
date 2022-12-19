@@ -116,7 +116,12 @@ function ResponsiveAppBar() {
     }
   }
 
-  const pages = [{ key: 'Home', href: "/home" }, { key: 'Search', href: "/searchbar" }];
+  const pages = [
+    { key: 'Home', href: "/home" },
+    { key: 'Profile', href: "/profile" },
+    { key: 'Work', href: "/work" },
+    { key: 'Search', href: "/searchbar" }
+  ];
 
 
   return (

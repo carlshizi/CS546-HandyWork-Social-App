@@ -1,5 +1,6 @@
 import {React} from "react";
 import {useSelector} from "react-redux";
+import { Navigate } from 'react-router-dom'
 
 // Internal imports
 import "./Profile.css";
@@ -10,6 +11,14 @@ const Profile = ({
   startEditCallback
 }) => {
   const { user: currentUser } = useSelector((state) => state.auth);
+
+  // console.log(currentUser.other.Followers)
+  // console.log(currentUser.other.username)
+  // console.log(currentUser.other)
+
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className="startprofile-container">

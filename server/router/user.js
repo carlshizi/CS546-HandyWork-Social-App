@@ -216,13 +216,16 @@ router.put("/follow/:id", verifyToken, async (req, res) => {
         const user = await User.findById(req.params.id);
         const otheruser = await User.findById(req.body.user);
 
-        if (!user.Followers.includes(req.body.user)) {
-            await user.updateOne({ $push: { Followers: req.body.user } });
-            await otheruser.updateOne({ $push: { Following: req.params.id } });
+        // console.log(user.username)
+        // console.log(otheruser.username)
+
+        if (!user.Followers.includes(otheruser.username)) {
+            await user.updateOne({ $push: { Followers: otheruser.username } });
+            await otheruser.updateOne({ $push: { Following: user.username } });
             return res.status(200).json("The user has followed you");
         } else {
-            await user.updateOne({ $pull: { Followers: req.body.user } });
-            await otheruser.updateOne({ $pull: { Following: req.params.id } });
+            await user.updateOne({ $pull: { Followers: otheruser.username } });
+            await otheruser.updateOne({ $pull: { Following: user.username } });
             return res.status(200).json("The user has unfollowed you");
         }
     } else {

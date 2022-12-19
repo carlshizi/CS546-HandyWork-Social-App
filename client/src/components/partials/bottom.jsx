@@ -6,6 +6,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import HandymanIcon from '@mui/icons-material/Handyman';
+import { Link } from 'react-router-dom'
 
 export default function SimpleBottomNavigation() {
   const [value, setValue] = React.useState(0);
@@ -19,9 +20,9 @@ export default function SimpleBottomNavigation() {
           setValue(newValue);
         }}
       >
-        <BottomNavigationAction label="Create" icon={<AddCircleIcon />} />
-        <BottomNavigationAction label="All HandyMen" icon={<HandymanIcon />} />
-        <BottomNavigationAction label="Friends" icon={<PeopleAltIcon />} />
+        {/* <BottomNavigationAction label="Create" icon={<AddCircleIcon />} component={Link} to="/" /> */}
+        <BottomNavigationAction label="HandyMen Request" icon={<HandymanIcon />} component={Link} to="/work" />
+        {/* <BottomNavigationAction label="Friends" icon={<PeopleAltIcon />} component={Link} to="/" /> */}
       </BottomNavigation>
     </Box>
   );
