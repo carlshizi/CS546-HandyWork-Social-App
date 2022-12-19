@@ -27,7 +27,7 @@ const EditProfile = ({
 
     const isProperName = (str) => {
         str = str.trim();
-        const regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+        const regName = /^[a-zA-Z/s]+$/;
         if (!str.match(regName))     
         return (
             <div className="regError2" role="alert">Enter firstname lastname</div>
@@ -61,8 +61,8 @@ const EditProfile = ({
         profileform.current.validateAll();
 
         //additional validation
-        const regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
-        if (!name.match(regName)) {alert("Enter 'firstname lastname'")};
+        const regName = /^[A-Za-z\s]*$/;
+        if (!name.match(regName)) {alert("Enter valid name (alphabet and spaces only)")};
         if (handyman !== "Yes" && handyman !== "No") {alert("Are you a available handyman? Check 'Yes' or 'No'!")}
         if (skills.trim().length === 0) {alert("Enter some skills")};
         if (bio.trim().length === 0) {alert("Provide a bio")};
@@ -93,6 +93,8 @@ const EditProfile = ({
     <div className="EditProfile-Page">
         <div className="EditProfile-form">
         <Form ref={profileform}> 
+
+            
 
             <div className="EditProfile-input-container">
                 <label for="name">Name:</label>
