@@ -88,9 +88,11 @@ const ViewOthersProfile = () => {
             {/* <strong>Username:</strong> {currentUser.other.username} */}
           </p>
 
-          <strong>Friends:</strong>
-          <ul>{info.Friends.map((role, index) => <li key={index}>{role}</li>)}</ul>
+          <strong>Friends (Following):</strong>
+          <ul>{info.Following.map((role, index) => <li key={index}>{role}</li>)}</ul>
 
+          <strong>Friends (Followers):</strong>
+          <ul>{info.Followers.map((role, index) => <li key={index}>{role}</li>)}</ul>
         </div>
 
       </div>

@@ -44,7 +44,7 @@ export default function RecipeReviewCard({ person }) {
 					title={person.name}
 					subheader={person.email}
 				/>
-				<CardActionArea href="hotmail.com">
+				<CardActionArea href= {`http://localhost:3000/user/${person.name}`} >
 				<CardMedia
 					component="img"
 					height="194"
