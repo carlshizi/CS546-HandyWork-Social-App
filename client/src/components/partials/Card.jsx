@@ -16,7 +16,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { CardActionArea } from '@mui/material';
-
+import HandymanIcon from '@mui/icons-material/Handyman';
 
 const ExpandMore = styled((props) => {
 	const { expand, ...other } = props;
@@ -38,7 +38,7 @@ export default function RecipeReviewCard({ person }) {
 
 	return (
 		<div>
-			<Card sx={{ maxWidth: 345 }}>
+			<Card sx={{ maxWidth: 280 }}>
 				<CardHeader
 					
 					title={person.name}
@@ -57,11 +57,11 @@ export default function RecipeReviewCard({ person }) {
 				</CardContent>
 				<CardActions disableSpacing>
 					<IconButton aria-label="add to favorites">
-						<FavoriteIcon />
+						<HandymanIcon />
 					</IconButton>
-					<IconButton aria-label="share">
+					{/* <IconButton aria-label="share">
 						<ShareIcon />
-					</IconButton>
+					</IconButton> */}
 					<ExpandMore
 						expand={expanded}
 						onClick={handleExpandClick}
