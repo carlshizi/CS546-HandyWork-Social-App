@@ -7,7 +7,7 @@ const { Types } = require('mongoose');
 
 const isProperName = (str) => {
     str = str.trim();
-    const regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+    const regName = /^[A-Za-z\s]*$/;
     if (!str.match(regName)) {
         throw "invalid name input";
     } 
