@@ -54,9 +54,11 @@ const Profile = ({
           <strong>Username:</strong> {currentUser.other.username}
         </p>
 
-        <strong>Friends:</strong>
-        <ul>{currentUser.other.Friends.map((role, index) => <li key={index}>{role}</li>)}</ul>
-    
+        <strong>Friends (Following):</strong>
+        <ul>{currentUser.other.Following.map((role, index) => <li key={index}>{role}</li>)}</ul>
+
+        <strong>Friends (Followers):</strong>
+        <ul>{currentUser.other.Followers.map((role, index) => <li key={index}>{role}</li>)}</ul>    
       </div>
   
     </div>

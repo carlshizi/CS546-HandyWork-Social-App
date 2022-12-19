@@ -354,3 +354,25 @@ img:hover {
   cursor: pointer;
   margin-left: 95px;
 }
+
+.button9 {
+	padding: 15px 30px;
+	font-size: 24px;
+	text-align: center;
+	outline: 0;
+	border: 0;
+	background-color: #6a95fa;
+	color: #fff;
+	border-radius: 15px;
+	box-shadow: 0 10px #fff;
+	cursor: pointer;
+	transition: background-color 400ms ease-in-out;
+}
+.button9:hover {
+	background-color: #34caeb;
+}
+.button9:active {
+	background-color: #e91e63;
+	box-shadow: 0 5px #cbcbcc;
+	transform: translatey(5px);
+}
